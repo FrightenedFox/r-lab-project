@@ -2,6 +2,8 @@
 # R .gitignore #
 ################
 
+temp.r
+
 # History files
 .Rhistory
 .Rapp.history
