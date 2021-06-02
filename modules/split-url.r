@@ -43,4 +43,14 @@ split_url_demo <- function() {
 }
 
 
+clean_split_url <- function(url_list) {
+  # Returns a clean output of the "split_url()" function without 
+  # unnecessary columns and with column names
+  
+  resulting_matrix <- split_url(url_list)[,c(1,2,9,11,13,15)]
+  colnames(resulting_matrix) <- c("url", "protocol", "host", 
+                                  "path", "query", "fragment")
+  return(resulting_matrix)
+}
+
 
