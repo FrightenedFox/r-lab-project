@@ -1,4 +1,4 @@
-url_ambiguity_helper <- function(string, appropriate_regex) {
+symbol_count_helper <- function(string, appropriate_regex) {
   # ---------------------------------------------------------
   # Counts number of "appropriate_regex" sequences in the "string"
   #
@@ -48,7 +48,7 @@ letter_digit_letter <- function(string, n_digits_inside = 2) {
   let_dig_let_regex <- paste("[a-z][\\d\\!]{1,",
                              n_digits_inside,
                              "}[a-z]", sep = "")
-  url_ambiguity_helper(string, let_dig_let_regex)
+  symbol_count_helper(string, let_dig_let_regex)
 }
 
 
@@ -69,7 +69,7 @@ digit_letter_digit <- function(string, n_letters_inside = 2) {
   dig_let_dig_regex <- paste("\\d[a-z\\!]{1,",
                              n_letters_inside,
                              "}\\d", sep = "")
-  url_ambiguity_helper(string, dig_let_dig_regex)
+  symbol_count_helper(string, dig_let_dig_regex)
 }
 
 
@@ -95,5 +95,5 @@ combined_url_ambiguity <- function(string, n_symbols_inside = 2) {
                            "2}[a-z]|\\d[a-z\\!]{1,",
                            n_symbols_inside,
                            "2}\\d", sep = "")
-  url_ambiguity_helper(string, ambiguity_regex)
+  symbol_count_helper(string, ambiguity_regex)
 }

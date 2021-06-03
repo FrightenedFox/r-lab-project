@@ -53,5 +53,3 @@ url_lengths <- function(devided_url) {
   # Joined matrices
   return(cbind(partial_lengths, ratios_matrix))
 }
-
-
