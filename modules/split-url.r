@@ -52,5 +52,3 @@ clean_split_url <- function(url_list) {
                                   "path", "query", "fragment")
   return(resulting_matrix)
 }
-
-
