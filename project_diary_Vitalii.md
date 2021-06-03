@@ -13,4 +13,6 @@
  - Dodaliśmy trzy funkcji do obliczania ilości wystąpień ciągów postaci: litera między dwiema cyframi (np. 9l1) lub cyfra między dwiema literami (np. examp1e). *(`modules/url-ambiguity.r`)*  
  Takie cechy mogą pomóc wykryć, czy adres URL próbuje oszukać użytkownika, czy nie.
 
- 
+ ---
+
+ - Została zaimplementowana funkcja dla liczenia oddzielnie ilości liter, cyfr i znaków interpunkcyjnych (funkcja `lett_dig_symb_count()` w pliku *`modules/url-special-symbol-count.r`*)
