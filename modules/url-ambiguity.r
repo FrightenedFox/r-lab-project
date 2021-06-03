@@ -48,6 +48,10 @@ letter_digit_letter <- function(string, n_digits_inside = 2) {
   let_dig_let_regex <- paste("[a-z][\\d\\!]{1,",
                              n_digits_inside,
                              "}[a-z]", sep = "")
+
+  colnames(string) <- paste(
+    "ldl_", colnames(string), sep = "_"
+  )
   symbol_count_helper(string, let_dig_let_regex)
 }
 
@@ -69,6 +73,10 @@ digit_letter_digit <- function(string, n_letters_inside = 2) {
   dig_let_dig_regex <- paste("\\d[a-z\\!]{1,",
                              n_letters_inside,
                              "}\\d", sep = "")
+
+  colnames(string) <- paste(
+    "dld_", colnames(string), sep = "_"
+  )
   symbol_count_helper(string, dig_let_dig_regex)
 }
 
@@ -95,5 +103,9 @@ combined_url_ambiguity <- function(string, n_symbols_inside = 2) {
                            "2}[a-z]|\\d[a-z\\!]{1,",
                            n_symbols_inside,
                            "2}\\d", sep = "")
+
+  colnames(string) <- paste(
+    "xyx_", colnames(string), sep = "_"
+  )
   symbol_count_helper(string, ambiguity_regex)
 }

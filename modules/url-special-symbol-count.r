@@ -17,7 +17,7 @@ lett_dig_symb_count <- function(string) {
   
   letters_regex <- "[a-zA-Z]"
   digits_regex <- "[\\d]"
-  symbols_regex <- "[^\\dA-Za-z\\s]"
+  symbols_regex <- "[[:punct:]]"
   lett_count <- as.matrix(symbol_count_helper(string, letters_regex))
   dig_count <- as.matrix(symbol_count_helper(string, digits_regex))
   symb_count <- as.matrix(symbol_count_helper(string, symbols_regex))
