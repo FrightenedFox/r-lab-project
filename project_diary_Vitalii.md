@@ -20,3 +20,5 @@
  - Został utworzony notatnik dla przeprowadzenia wizualizacji danych. Do niego zostały załadowane, a później odpowiednio przygotowane oba zbiory danych. Niektóre kolumny zostały usunięte, inne przerobione na typ czynników *(nie wiem dokładnie jak to powiedzieć, ale przerobiłem ich na typ "factor")*. 
 
  - Dla każdego zbioru danych zostały obliczone wszystkie wcześniej przygotowane statystyki. Wejściowa baza danych i otrzymane wyniki zostały pomieszczone do wspólnej ramki danych (`fdfm` - [Mendeley Data](https://data.mendeley.com/datasets/gdx3pkwp47/2); `fdfp` - [PhishTank](https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset)). 
+ 
+ - Za pomocą pakietów `ggplot2`, `ggExtra` i `lattice` wstępnie zostały narysowane 7 wykresów
