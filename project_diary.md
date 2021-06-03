@@ -38,4 +38,14 @@ Wyjściowy plik można znaleźć za następującą ścieżką: `data/PhishStorm_
  - Dodano trzy funkcje do obliczania ilości wystąpień ciągów postaci litera między dwiema cyframi (np. 9l1) lub cyfra między dwiema literami (np. examp1e), które mogą pomóc wykryć, czy ktoś za pomocą takiego adresu URL próbuje oszukać użytkownika. *(`modules/url-ambiguity.r`)*  
 
  - Przeprowadzono dyskusję na temat sposobu prezentacji projektu.
-   
+ 
+
+
+
+
+
+
+
+ - Idee do ulepszenia:
+   - policzenie entropii
+   - policzenie długości najdłuższego słowa
