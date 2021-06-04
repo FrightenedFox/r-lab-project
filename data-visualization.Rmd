@@ -1,0 +1,370 @@
+---
+title: "Phishing: jak się nie dać \"złapać\""
+author: "By Vitalii Morskyi & Julia Makarska"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+\#TODO: trzeba będzie tu coś ładnego zrobić i ewentualnie poprawnie podać temat projektu bo chyba zapomniałem jak to powinno wyglądać
+
+
+## Importowanie danych, pakietów R i modułów
+
+---
+
+```{r message=FALSE, warning=FALSE}
+library("stringi")
+library("stringr")
+library("lattice")
+library("ggplot2")
+library("ggExtra")
+library("hrbrthemes")
+library("rgl")
+
+source("modules/split-url.r")
+source("modules/url-ambiguity.r")
+source("modules/url-lengths.r")
+source("modules/url-special-symbol-count.r")
+
+# Mendeley Data : Dataset of Malicious and Benign Webpages
+dfm <- read.csv("data/Webpages_Classification_10k.csv",  row.names = "X") 
+
+# Aalto University : PhishStorm - phishing / legitimate URL dataset
+dfp <- read.csv("data/PhishStorm_urlset_96k.csv") 
+```
+
+```{r}
+head(dfm, n = 1L)
+head(dfp)
+```
+
+
+# Wstępne przygotowanie danych
+
+---
+
+Muszemy przeprowadzić wstępną edycję datasetów, ponieważ na pierwszy rzut widać, że:
+ - wejściowe ramki danych zawierają zbędne kolumny, których nie uwzględniamy w naszej analizie
+ - mają różne nazwy najważniejszych dla naszej analizy kolumn - *domain* i *url*
+ - otagowanie domen w zbiorze danych *"PhishTank"* nie jest zbyt zrozumiałym dla człowieka
+ 
+```{r}
+dfm[c("content", "url_len", "ip_add")] <- NULL
+head(dfm)
+```
+
+W ramce danych `dfm` pozostawiamy następujące kolumny:
+ - url
+ - geo_loc 
+ - ...
+
+\#TODO: dodać wszystkie pozostałe kolumny + opisać ich oznaczenia korzystając [z tej strony](https://data.mendeley.com/datasets/gdx3pkwp47/2)
+
+\#TODO: zrobić analogiczny opis dla poniższej komórki tym rzem używając tabelki nr. V [z tego artykułu](https://www.researchgate.net/publication/273169788_PhishStorm_Detecting_Phishing_With_Streaming_Analytics). *(mld = main level domain = host, podmiot; ps = public suffix)*
+
+
+```{r}
+colnames(dfp)[1] <- "url"
+dfp[c("card_rem", "ratio_Rrem", "ratio_Arem", 
+      "jaccard_RR", "jaccard_RA", "jaccard_AR", 
+      "jaccard_AA", "jaccard_ARrd", "jaccard_ARrem")] <- NULL
+dfp$label <- factor(dfp$label)
+dfp$mld_res <- factor(dfp$mld_res)
+dfp$mld.ps_res <- factor(dfp$mld.ps_res)
+levels(dfp$label) <- c("good", "bad")
+levels(dfp$mld_res) <- c("no", "yes")
+levels(dfp$mld.ps_res) <- c("no", "yes")
+head(dfp)
+```
+
+
+# Obliczanie badanych statystyk (cech?)
+
+---
+
+Najpierw dzielimy link na następujące części: |  *`split_url()`* oraz *`clean_split_url()`*
+ - protocol *(schemat)*
+ - domain name *(podmiot)*
+ - path *(ścieżka)* 
+ - query *(zapytanie)*
+ - fragment *(fragment)*
+
+*P.s: tłumaczenie części domen wziąłem [z tej strony](https://pl.wikipedia.org/wiki/Uniform_Resource_Identifier), więc nie wiem na ile jest OK*
+ 
+
+
+```{r}
+split_res <- clean_split_url(dfp$url)
+split_res[20:29,]
+```
+
+
+---
+
+Bierzemy pod uwage następujące cechy każdej z wymienionych powyżej części:
+ - długość  |  *`url_lengths()`*
+ - następujące stosunki długości:  |  *`url_lengths()`*
+    - Domain Name divided by URL 
+    - Path divided by URL
+    - Argument divided by URL
+    - Path divided by Domain Name
+    - Argument divided by Domain Name
+    - Argument divided by Path  
+ - ciąg znaków postaci `litera-cyfra-litera`  |  *`letter_digit_letter()`*
+ - ciąg znaków postaci `cyfra-litera-cyfra`  |  *`digit_letter_digit()`*
+ - połączenie dwóch poprzednich metryk  |  *`combined_url_ambiguity()`*
+ - liczba liter  |  *`lett_dig_symb_count()`*
+ - liczba cyfr  |  *`lett_dig_symb_count()`*
+ - liczba znaków interpunkcyjnych  |  *`lett_dig_symb_count()`*
+ 
+
+\#TODO: przydałoby się przetłumaczyć te stosunki długości i opisać te statystyki (chyba mamy identyczny temat w prezentacji, więc można po prostu skopiować to stąd) 
+
+
+```{r}
+lengths_res <- url_lengths(split_res)
+lengths_res[20:29,]
+
+ldl_res <- letter_digit_letter(split_res)
+dld_res <- digit_letter_digit(split_res)
+xyx_res <- combined_url_ambiguity(split_res)
+cbind(ldl_res, dld_res, xyx_res)[20:29,]
+
+ldsc_res <- lett_dig_symb_count(split_res)
+ldsc_res[20:29,]
+```
+
+---
+
+Powtarzamy analogiczne obliczenia dla drugiego zbioru danych, ale tym razem już nie będziemy wyświetlać wyniki każdego obliczenia
+
+```{r}
+split_res_2 <- clean_split_url(dfm$url)
+lengths_res_2 <- url_lengths(split_res_2)
+ldl_res_2 <- letter_digit_letter(split_res_2)
+dld_res_2 <- digit_letter_digit(split_res_2)
+xyx_res_2 <- combined_url_ambiguity(split_res_2)
+ldsc_res_2 <- lett_dig_symb_count(split_res_2)
+```
+
+# Zebranie wszystkich parametrów do jednej ramki danych
+
+---
+
+Najpierw tworzymy jedną macierz z wynikami wszystkich obliczeń, którą zatem konwertujemy w ramkę danych.
+
+
+```{r}
+params_df <- as.data.frame(cbind(
+    lengths_res,
+    ldl_res,
+    dld_res,
+    xyx_res,
+    ldsc_res
+))
+params_df_2 <- as.data.frame(cbind(
+    lengths_res_2,
+    ldl_res_2,
+    dld_res_2,
+    xyx_res_2,
+    ldsc_res_2
+))
+dim(params_df)
+```
+
+
+---
+
+Otrzymaliśmy dość dużą ramkę danych, więc przydałoby się ją troszkę zmniejszyć. Po przeanalizowaniu jej struktury  widzimy, że niektóre kolumny posiadają 0 poziomów, czyli nie przechowują żadnej informacji, więc możemy ich usunąć. Zatem możemy połączyć wejścjiową ramkę danych z otrzymaną. Dokonujemy analogicznych działań dla obu datasetów.
+
+---
+
+
+```{r}
+str(params_df)
+
+params_df[, c("protocol", "protocol_l", "ldl_protocol", 
+              "dld_protocol", "xyx_protocol", "lett_protocol", 
+              "dig_protocol", "symb_protocol")] <- NULL
+
+params_df_2[, c("protocol", "protocol_l", "ldl_protocol", 
+                "dld_protocol", "xyx_protocol", "lett_protocol", 
+                "dig_protocol", "symb_protocol")] <- NULL
+
+fdfp <- cbind(dfp, params_df)
+fdfm <- cbind(dfm, params_df_2)
+
+cat("First DataFrame dimensions (dfdp): \n", dim(fdfp), 
+    "\nSecond DataFrame dimensions (dfdm):\n", dim(fdfm), "\n")
+```
+
+\newpage
+
+# Wizualizacja wyników analizy
+
+---
+
+```{r}
+data_distribution_df <- data.frame(counts = c(sum(fdfp$label == "good"), sum(fdfp$label == "bad")),
+                                   labels = c("good", "bad"))
+ggplot(data_distribution_df, aes(x = "", y = counts, fill = labels)) +
+  geom_bar(stat = "identity", width = 1, color = "white") +
+  coord_polar("y", start = 0) + 
+  theme_void() + ggtitle("Dystrybucja domen w zbiorze danych \"PhishStorm\"") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(color = "Etykieta")
+```
+
+\newpage
+
+```{r}
+data_distribution_df2 <- data.frame(counts = c(sum(fdfm$label == "good"), sum(fdfm$label == "bad")),
+                                    labels = c("good", "bad"))
+ggplot(data_distribution_df2, aes(x = "", y = counts, fill = labels)) +
+  geom_bar(stat = "identity", width = 1, color = "white") +
+  coord_polar("y", start = 0) + 
+  theme_void()  + ggtitle("Dystrybucja domen w poprzednio przygotowanym\nzbiorze danych \"Mendeley Data\"") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(color = "Etykieta")
+```
+
+\newpage
+
+```{r}
+ggplot(fdfp[fdfp$url_l < 500, ], aes(x = label, y = url_l, group = label, fill = label)) + 
+  geom_violin() +
+  ylab("Długość linku") + 
+  xlab("Etykieta") + 
+  ggtitle("Dystrybucja długości adresów URL") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(color = "Etykieta")
+```
+
+\newpage
+
+```{r}
+splom(~data.frame(xyx_host, lett_host, dig_host, symb_host), 
+      data = fdfp[sample(nrow(fdfp), 1000),],
+      pch = 1,
+      main = "Rozkład symboli w hoscie URLi (host part of the URL)",
+      groups = label,
+#       xlab = c("A", "B", "C", "D"),
+#       xlab = "", # czymś takim można usunąńć ten napis "Scatter Plot Matrix"
+#       ylab = c("A", "B", "C", "D"),
+      pscales = 0,
+      auto.key = list(columns = 2),
+      varnames = c("Liczba ciągów\npostaci XYX", "Liczba lieter", 
+                   "Liczba cyfr", "Liczba znaków\ninterpunkcyjnych")
+      )
+```
+
+\newpage
+
+```{r}
+histogram(~ symb_url  | label  , 
+          data = fdfp[sample(nrow(fdfp), 2000),],
+          main = "Porównanie liczba znaków interpunkcyjnych\nw dobrych i złych domenach",
+          xlab = "Ilość symboli w URL",
+          ylab = "Procent całości",
+          layout = c(1, 2),
+          nint = 20,
+          xlim = c(0, 50)
+         )
+```
+
+\newpage
+
+```{r}
+p <- ggplot(fdfp[fdfp$url_l < 1000, ], aes(x = xyx_query, y = xyx_url, color = label)) +
+    geom_point(alpha = .7, na.rm = TRUE) + 
+    theme(legend.position = "left") +
+    ylab("Letter-Digit-Letter lub Digit-Letter-Digit w całym URL") + 
+    xlab("Letter-Digit-Letter lub Digit-Letter-Digit w zapytaniu") + 
+    ggtitle("Dystrybucja podejrzewanych ciągów w adresach URL") +
+    theme(plot.title = element_text(family = "", 
+                                    face = 'bold', 
+                                    colour = 'black', 
+                                    size = 12)) + 
+    labs(color = "Etykieta")
+
+ggMarginal(p, type = "histogram")
+```
+
+\newpage
+
+```{r}
+splom(~data.frame(host_l, path_l, query_l, fragment_l, xyx_host, xyx_path, xyx_query), 
+      data = fdfp[sample(nrow(fdfp), 2000),],
+      pch = 1,
+      main = "Rozkład znaków w domenach",
+      groups = label,
+      pscales = 0,
+      auto.key = list(columns = 2),
+      varnames = c("Długość\nhosta", "Długość\nścieżki", "Długość\nzapytania", 
+                   "Długość\nfragmentu", "XYX\nhost", "XYX\nścieżka", 
+                   "XYX\nzapytanie")
+      )
+```
+
+\newpage
+
+```{r}
+ggplot(data = fdfp[fdfp$url_l < 200, ], aes(x = symb_url, group = label, fill = label)) +
+  geom_density(adjust = 5, alpha = .4) +
+  ylab("Gęstość") + 
+  xlab("Ilość znaków interpunkcyjnych w linku") + 
+  ggtitle("Gęstość ilości znaków interpunkcyjnych w linkach") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(color = "Etykieta")
+```
+
+\newpage
+
+```{r}
+ggplot(data = fdfm, aes(x = js_len, group = label, fill = label)) +
+  geom_density(adjust = 1, alpha = .4) +
+  ylab("Gęstość") + 
+  xlab("Długość kodu JavaScript") + 
+  ggtitle("Gęstość długości kodu JavaScript na stronach") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(color = "Etykieta")
+```
+
+\newpage
+
+```{r}
+ggplot(data = fdfm, aes(x = js_len, y = js_obf_len, color = label) ) +
+  geom_point() +
+  ylab("Długość zaciemnionego kodu JavaScript.") + 
+  xlab("Długość kodu JavaScript") + 
+  ggtitle("Związek pomiędzy długością kodu JavaScript\na biezpiecznością domen") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(color = "Etykieta")
+```
+
+\newpage
+
+# Jakieś wnioski przydałoby się dodać
+
+
+
+
