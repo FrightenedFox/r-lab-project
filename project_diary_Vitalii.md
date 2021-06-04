@@ -21,4 +21,7 @@
 
  - Dla każdego zbioru danych zostały obliczone wszystkie wcześniej przygotowane statystyki. Wejściowa baza danych i otrzymane wyniki zostały pomieszczone do wspólnej ramki danych (`fdfm` - [Mendeley Data](https://data.mendeley.com/datasets/gdx3pkwp47/2); `fdfp` - [PhishTank](https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset)). 
  
- - Za pomocą pakietów `ggplot2`, `ggExtra` i `lattice` wstępnie zostały narysowane 7 wykresów
+ - Za pomocą pakietów `ggplot2`, `ggExtra` i `lattice` zostały narysowane 10 dwuwymiarowych wykresów. Pakiet `rgl` został użyty dla narysowania interaktywnego trójwymiarowego wykresu. 
+
+ - Żeby wygenerować ładny plik PDF, został utworzony również R Notebook, do którego została przepisana cała zawartość Jupyter Notebook.
+ 
