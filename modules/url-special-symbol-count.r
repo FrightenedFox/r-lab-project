@@ -1,5 +1,5 @@
 # Required module:
-source("url-ambiguity.r")
+# source("modules/url-ambiguity.r")
 
 
 lett_dig_symb_count <- function(string) {
