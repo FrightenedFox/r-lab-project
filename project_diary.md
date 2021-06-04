@@ -1,5 +1,5 @@
 # Dziennik z realizacji projektu 
- - Został wybrany wstępny temat projektu - Bezpieczeństwo domen internetowych (Phishing - jak się nie dać "złowić".)
+ - Został wybrany wstępny temat projektu - Bezpieczeństwo domen internetowych.
 
  - Zapoznano się z podstawowym działaniem platformy GitHub (https://github.com/) oraz podjęto decyzję o pracy przy jej pomocy. 
 
@@ -38,8 +38,10 @@ Wyjściowy plik można znaleźć za następującą ścieżką: `data/PhishStorm_
  - Dodano trzy funkcje do obliczania ilości wystąpień ciągów postaci litera między dwiema cyframi (np. 9l1) lub cyfra między dwiema literami (np. examp1e), które mogą pomóc wykryć, czy ktoś za pomocą takiego adresu URL próbuje oszukać użytkownika. *(`modules/url-ambiguity.r`)*  
 
  - Przeprowadzono dyskusję na temat sposobu prezentacji projektu.
- 
 
+ - Została zaimplementowana funkcja do liczenia, oddzielnie ilości liter, cyfr i znaków interpunkcyjnych (funkcja `lett_dig_symb_count()` w pliku *`modules/url-special-symbol-count.r`*)
+ 
+ - Prystąpiono do budowy prezentacji.
 
 
 

@@ -1,36 +1,40 @@
 \documentclass{beamer}
-\usepackage{pgf} % - pozwala wczytywać formaty obrazków jak np. .jpg
-%\usepackage{polski} % - polskie znaki diakrytyczne
+\usepackage{polski}
 \usepackage[utf8]{inputenc}
-\usepackage{xcolor} % - dodatkowa gama kolorów
-\usetheme{Goettingen} % - styl prezentacji
-\usecolortheme{seahorse} % - kolorystyka prezentacji
-\usefonttheme{default} % - styl czcionki w prezentacji
-\useoutertheme{tree} % - sty=l nagłówka i stopki
+\usetheme{Darmstadt} % - styl prezentacji
+\usecolortheme{crane} % - kolorystyka prezentacji
+%\usefonttheme{default} % - styl czcionki w prezentacji
+%\useoutertheme{tree} % - sty=l nagłówka i stopki
 
-\setbeamercolor{alerted text}{fg=red}
-\setbeamercolor{background canvas}{bg=white}
-\setbeamercolor{block body alerted}{bg=red!90!black}
-\setbeamercolor{block body}{bg=blue!20!white}
-\setbeamercolor{block body example}{bg=normal text.bg!90!black}
-\setbeamercolor{block title alerted}{use={normal text, alerted text},
-	fg=alerted text.fg!15!black, bg=alerted text.fg!75!black}
+\definecolor{background}{RGB}{217,215,196}
+
+\setbeamercolor{background canvas}{bg=background}
 \setbeamercolor{block title}{bg=gray!30}
-\setbeamercolor{block title example}{use={normal text, example text},
-	fg=example text.fg!15!black, bg=example text.fg!75!black}
-\setbeamercolor{frametitle}{fg=black}
-\setbeamercolor{item projected}{fg=black}
-\setbeamercolor{normal text}{bg=black}
 
-\setbeamertemplate{theorems}[numbered]
-\newtheorem{tw}{Twierdzenie}
-\newtheorem{lm}{Lemat}
-\newtheorem{uw}{Uwaga}
-\newtheorem{pr}{Przykład}
-\newtheorem{wn}{Wniosek}
-\theoremstyle{definition}
-\newtheorem{df}{Definicja}
-\def\proofname{Dowód}
+
+%\setbeamercolor{alerted text}{fg=red}
+
+%\setbeamercolor{block body alerted}{bg=red!90!black}
+%\setbeamercolor{block body}{bg=background}
+%\setbeamercolor{block body example}{bg=normal text.bg!90!black}
+%\setbeamercolor{block title alerted}{use={normal text, alerted text},
+%	fg=alerted text.fg!15!black, bg=alerted text.fg!75!black}
+
+%\setbeamercolor{block title example}{use={normal text, example text},
+%	fg=example text.fg!15!black, bg=example text.fg!75!black}
+%\setbeamercolor{frametitle}{fg=black}
+%\setbeamercolor{item projected}{fg=black}
+%\setbeamercolor{normal text}{bg=black}
+%
+%\setbeamertemplate{theorems}[numbered]
+%\newtheorem{tw}{Twierdzenie}
+%\newtheorem{lm}{Lemat}
+%\newtheorem{uw}{Uwaga}
+%\newtheorem{pr}{Przykład}
+%\newtheorem{wn}{Wniosek}
+%\theoremstyle{definition}
+%\newtheorem{df}{Definicja}
+%\def\proofname{Dowód}
 
 \usepackage{pgf,tikz,pgfplots}
 \pgfplotsset{compat=1.15}
@@ -38,20 +42,31 @@
 \usetikzlibrary{arrows}
 
 \usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{blindtext}
+\usepackage{hyperref}
+
 \usepackage{graphicx}
 \usepackage{geometry}
-\usepackage{amsmath}
-\usepackage{geometry}
 \usepackage{latexsym}
-\usepackage{wrapfig}
 \usepackage{multicol}
-\usepackage{qtimes}
+\usepackage{wrapfig}
 \usepackage{pgfplots}
-\usepackage{xcolor}
+\usepackage{pgf}
+\usepackage{sidecap}
 \usepackage{qtimes}
+	\hypersetup{
+		colorlinks=true,
+		linkcolor=cyan,
+		filecolor=magenta,      
+		urlcolor=blue,
+		pdftitle={Overleaf Example},
+		pdfpagemode=FullScreen,
+	}
+\usepackage{xcolor}
 
-\title{Subdivision of graphs in $\mathcal{R}(mK_2,P_4)$}
-\author {Julia Makarska}
+\title{Phishing - jak się nie dać "złowić"?}
+\author {Julia Makarska\newline Vitalii Morskyi}
 \date[\empty]
 
 \begin{document}
@@ -59,94 +74,58 @@
 \begin{frame}
 	\maketitle
 \end{frame}
-\begin{frame}[shrink]
-\frametitle{Table of contents}
-	\hypertarget{a}\tableofcontents
-\end{frame}
-\section{Abstract}
+%\begin{frame}[shrink]
+%\frametitle{Table of contents}
+%	\hypertarget{a}\tableofcontents
+%\end{frame}
+\section{Wstęp teoretyczny}
 \begin{frame}
-	\uncover<1->
-		{
-		In the following paper, we will discuss how to create new Ramsey minimal graphs from previous known Ramsey minimum  graphs using the subdivision operation.\\~\\
-		}
-	\uncover<2->
-	{
-		Let us denote $F$, $G$, $H$ as graphs. The notation $F\to(G,H)$ means that red-blue coloring of all edges of $F$ will contain either a red copy of $G$ or a blue copy of $H$.\\~\\
-	}
-	\uncover<3->
-	{
-		The set $\mathcal{R}(G,H)$ consists of all Ramsey $(G,H)$ -- minimal graphs.
-	}
-\end{frame}
-
-\section{Introduction}
-	\subsection{Lemma 1}
-\begin{frame}
-	\uncover<1->
-	{
-		\begin{block}{Lemma 1}
-		Let $H$ be a connected graph and $m$ be a positive integer. 
-		Suppose $F\in\mathcal{R}(mK_2,H)$. For each $e\in E(F)$, let $\tau$ be an $(mK_2,H)$-coloring of edges of $F-e$. Then, there exists a red $(m-1)K_2$ in $F-e$.
-		\end{block}
-	}
-\end{frame}
-
-\section{Subdivision graphs}
-	\subsection{Example - subdivision of the graph $G$}
-\begin{frame}
-	\uncover<1->
-	{
-		\begin{block}{Example 1}
-		Consider a graph $G$ shown in the Figure \ref{fig:f1}. Next to the graph $G$ can be seen subdivision of the graph $G$ on the edge $e_4$ and $e_6$.
-		\end{block}
-	}
-	\uncover<2->
-	{
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\linewidth]{Figure_1}
-		\caption{The graphs $G$, $SG(e_6,2)$, $SG(e_4,2)$}
-		\label{fig:f1}
-	\end{figure}
-}
-\end{frame}
-\subsection{Lemma 2}
-\begin{frame}
-	\uncover<1->
-		{
-			\begin{block}{Lemma 2}
-			Let $m\geq 2$ be an integer and $F\in\mathcal{R}(mK_2,P_4)$. Then, for any $e\in E(F)$, there exists a red-blue coloring of $F$ having no red $mK_2$ and the edge $e$ satisfies one of the following four conditions:
-			\begin{enumerate}
-				\item[i)] $e$ is any edge of exactly one blue path $P_4$,
-				\item[ii)] $e$ is the middle edge of more than one blue path $P_4$ (there is no blue path $P_5$ in this case)
-				\item[iii)] $e$ is one of the middle edges of one or more than one blue path $P_5$ (there is no blue path $P_6$ in this case), or
-				\item[iv)] $e$ is the middle edge of one or more than one blue path $P_6$. \textup{\cite{1}}
-			\end{enumerate}
-			\end{block}
-		}
-\end{frame}
-\begin{frame}
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=0.7\linewidth]{Figure_2}
-			\caption{The four conditions}
-			\label{fig:f2}
-		\end{figure}
-\end{frame}
-	\subsection{Theorem 1}
-\begin{frame}
-	\uncover<1->
-	{
-		\begin{block}{Theorem 1}
-			Let $F$ be a connected graph and $m\geq2$ be an integer. Suppose $\alpha$ is an edge contained in a cycle of $F$. If $F\in\mathcal{R}(mK_2,P_4)$, then $SF(\alpha,4)\in\mathcal{R}(E(F))$. Consequently, $SF(4)\subseteq\mathcal{R}\left( (m+1)K_2,P_4 \right).$ \textup{\cite{1}}
-		\end{block}
-	}
-\end{frame}
-\section{Conclusions}
-\begin{frame}
-	In conclusion, we have covered just a few of the basics of a given topic. The driving itself is difficult but very interesting. Therefore, I encourage you to review the bibliography given below for yourself.
-\end{frame}
+		\underline{Phishing} jest to atak oparty na wiadomościach e-mail lub SMS. Przestępcy internetowi próbują Cię oszukać i wymusić działania zgodne z ich oczekiwaniami.
+		\begin{wrapfigure}{r}{0.5\textwidth}
+			\begin{center}
+				\vspace{-20pt}
+				\includegraphics[width=0.30\textwidth]{../images/rys_1}
+				
+			\end{center}
+			\vspace{-20pt}
+		\end{wrapfigure}
+		  \\Wymowa nazwy tego oszustwa budzi skojarzenie z~łowieniem ryb nie bez powodu. Przestępcy, tak jak wędkarze stosują odpowiednio dobraną "przynętę"$_{._{\footnote{\tiny{Wszystkie grafiki pochodzą z dostępu Canva Pro.}}}}$
 		
+\end{frame}
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{../images/rys_2}
+		\label{fig:rys2}
+	\end{figure}
+	Dane pochodzą z strony o \href{https://phishing.opcja.pl/}{kontrolowanym ataku phishingowym}.
+\end{frame}
+
+\section{Badane statystyki}
+\begin{frame}
+		
+\end{frame}
+\begin{frame}
+	
+\end{frame}
+
+\section{Prezentacja kodu}
+\begin{frame}
+	\begin{center}
+		\huge{Prezentacja kodu.}
+	\end{center}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.5\linewidth]{../images/rys_6}
+		\label{fig:rys6}
+	\end{figure}
+\end{frame}
+
+
+
+
+
+
 
 \section{References}
 \begin{frame}[allowframebreaks]{Literatura}

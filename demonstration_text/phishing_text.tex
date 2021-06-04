@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newgeometry{tmargin=2cm, bmargin=2cm, lmargin=2cm, rmargin=2cm}
+
+\newtheorem{defi}{Definicja}[section]
+\newtheorem{uwa}{Uwaga}[section]
+\newtheorem{tw}{Twierdzenie}[section]
+\newenvironment{dw}{\par{\bf Dowód.}\rm }{\newline\rightline{$\square$}\par}
+\newtheorem{lem}{Lemat}[section]
+\newtheorem{zad}{Zadanie}[section]
+\newtheorem{fkt}{Fakt}[section]
+\newtheorem{wn}{Wniosek}[section]
+\newtheorem{prz}{Przykład}[section]
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{} % wszystkie nagłówki puste
+\fancyfoot[L]{Julia Makarska}
+\fancyfoot[C]{\empty} % numeracja stron
+\renewcommand{\headrulewidth}{0.0pt} % grubość linii
+%\pagestyle{myheadings} - numeracja stron
+
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+\RequirePackage{tgtermes}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{textcomp}
+\usepackage{ulem}
+\usepackage{tikz}
+\usepackage{float}
+
+\makeatletter
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+\renewcommand{\maketitle}{\begin{titlepage}
+		\vspace{0.5cm}
+		\vspace{\stretch{6}}
+		\begin{flushright}
+			\date[semestr letni 2020/2021
+		\end{flushright}	
+		\vspace*{2cm}
+		\begin{center}
+			Politechnika Rzeszowska\\
+			Wydział Matematyki i Fizyki Stosowanej\\
+			Ekonomia
+		\end{center}
+		\vspace{3cm}
+		\noindent
+		\begin{center}
+			\Large \@title
+		\end{center}
+		\vspace{13cm}
+		\begin{flushright}
+			\begin{minipage}{6.5cm}
+				\begin{flushright}
+					\normalsize \@author \par
+				\end{flushright}
+			\end{minipage}
+		\end{flushright}
+	\end{titlepage}
+}
+\makeatother
+\author{Makarska Julia\\Grupa C2\\Matematyka}
+\title{Ekonomia - ćwiczenia}
+
+\begin{document}
+	\maketitle	
+	\tableofcontents %spis treści
+	\newpage
+	
+\section{Slajd 1.}
+{
+	Zjawisko Phishingu zachodzi już od wielu lat. Jednak między innymi ostatni rok pokazał nam jak ważne jest bezpieczeństwo w internecie. Od roku świat się zatrzymał i przeniósł wszystko do Internetu. Z uwagi na ten fakt podjęcie tematu Phishingu uznaliśmy za bardzo na miejscu. Chcemy pokazać jak łatwo można dać się okraść. Przedstawiony przez nas projekt obejmuje tylko niewielki kawałek tej metody oszustwa, jednak uznaliśmy, że temat jest ciekawy.\\
+	~\\
+	Phishing jest to atak oparty na wiadomościach e-mail lub SMS. Przestępcy internetowi próbują Cię oszukać i wymusić na Tobie działania zgodne z ich oczekiwaniami.\\
+	Wymowa nazwy tego oszustwa budzi skojarzenie z łowieniem ryb nie bez powodu. Przestępcy, tak jak wędkarze stosują odpowiednio dobraną "przynętę".
+}
+\section{Slajd 2.}
+{
+	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
+}
+\section{Slajd 3.}
+{
+	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
+}
+
+\end{document}
