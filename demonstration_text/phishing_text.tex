@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\newgeometry{tmargin=2cm, bmargin=2cm, lmargin=2cm, rmargin=2cm}
+
+\newtheorem{defi}{Definicja}[section]
+\newtheorem{uwa}{Uwaga}[section]
+\newtheorem{tw}{Twierdzenie}[section]
+\newenvironment{dw}{\par{\bf Dowód.}\rm }{\newline\rightline{$\square$}\par}
+\newtheorem{lem}{Lemat}[section]
+\newtheorem{zad}{Zadanie}[section]
+\newtheorem{fkt}{Fakt}[section]
+\newtheorem{wn}{Wniosek}[section]
+\newtheorem{prz}{Przykład}[section]
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead{} % wszystkie nagłówki puste
+%\fancyfoot[L]{Julia Makarska}
+%\fancyfoot[C]{\empty} % numeracja stron
+%\renewcommand{\headrulewidth}{0.0pt} % grubość linii
+%\pagestyle{myheadings} - numeracja stron
+
+\usepackage{pgf,tikz,pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+\RequirePackage{tgtermes}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{graphicx} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{textcomp}
+\usepackage{ulem}
+\usepackage{tikz}
+\usepackage{float}
+
+\makeatletter
+\newcommand{\linia}{\rule{\linewidth}{0.4mm}}
+\renewcommand{\maketitle}{\begin{titlepage}
+		\vspace{0.5cm}
+		\vspace{\stretch{6}}
+		\begin{flushright}
+			\date[semestr letni 2020/2021
+		\end{flushright}	
+		\vspace*{2cm}
+		\begin{center}
+			Politechnika Rzeszowska\\
+			Wydział Matematyki i Fizyki Stosowanej\\
+			Programowanie w R
+		\end{center}
+		\vspace{3cm}
+		\noindent
+		\begin{center}
+			\Large \@title
+		\end{center}
+		\vspace{13cm}
+		\begin{flushright}
+			\begin{minipage}{6.5cm}
+				\begin{flushright}
+					\normalsize \@author \par
+				\end{flushright}
+			\end{minipage}
+		\end{flushright}
+	\end{titlepage}
+}
+\makeatother
+\author{Vitalii Morskyi\\Makarska Julia\\Grupa L04\\Inżynieria i analiza danych}
+\title{Projekt w R - notatki do prezentacji}
+
+\begin{document}
+	\maketitle	
+	\tableofcontents %spis treści
+	\newpage
+	
+\section{Slajd 1.}
+{
+	Zjawisko Phishingu zachodzi już od wielu lat. Jednak między innymi ostatni rok pokazał nam jak ważne jest bezpieczeństwo w internecie. Od roku świat się zatrzymał i przeniósł wszystko do Internetu. Z uwagi na ten fakt podjęcie tematu Phishingu uznaliśmy za bardzo na miejscu. Chcemy pokazać jak łatwo można dać się okraść. Przedstawiony przez nas projekt obejmuje tylko niewielki kawałek tej metody oszustwa, jednak uznaliśmy, że temat jest ciekawy.\\
+	~\\
+	Phishing jest to atak oparty na wiadomościach e-mail lub SMS. Przestępcy internetowi próbują Cię oszukać i wymusić na Tobie działania zgodne z ich oczekiwaniami.\\
+	Wymowa nazwy tego oszustwa budzi skojarzenie z łowieniem ryb nie bez powodu. Przestępcy, tak jak wędkarze stosują odpowiednio dobraną "przynętę".
+}
+\section{Slajd 2.}
+{
+	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
+}
+\section{Slajd 3.}
+{
+	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
+}
+\section{Slajd 4.}
+{
+	Głównym założeniem naszego projektu jest analiza adresu URL pod kątem niebezpiecznych kombinacji znakowych. Skupiamy się głównie na takich częściach URL jak:
+	\begin{itemize}
+		\item protocol (schemat)
+		\item domain name (nazwa serwera)
+		\item path (ścieżka do pliku)
+		\item query (zapytanie)
+		\item fragment (fragment)
+	\end{itemize}
+	Części te zostały wybrane z względu na to, że skupiamy się na analizie leksykalnej.\\
+	Następnie części te badamy pod kątem:
+	\begin{itemize}
+		\item długości
+		\item statystyki długości:
+			\begin{itemize}
+				\item nazwa domeny do adresu URL
+				\item ścieżka do adresu URL
+				\item argument do adresu URL
+				\item ścieżka do nazwy domeny
+				\item argument do nazwy domeny
+				\item argument do ścieżki
+			\end{itemize}
+		\item ciągu znaków postaci litera-cyfra-litera
+		\item ciągu znaków postaci cyfra-litera-cyfra
+		\item połączenia powyższych ciągów
+		\item liczby liter
+		\item liczby cyfr
+		\item liczby znaków interpunkcyjnych
+	\end{itemize}
+	Wybraliśmy dwa pliki i zmodernizowaliśmy tak by odpowiadały badanym cechom.
+}
+\section{Slajd 5.}
+{
+	Przejdziemy teraz do prezentacji kodu.
+}
+\section{Slajd 6.}
+{
+	Pierwsze z naszych wykresów przedstawiają porównanie ilości dobrych i złych domen w naszych plikach z danymi. Od razu widać, że jest ich podobna ilość.
+}
+\section{Slajd 7.}
+{
+	Kolejny wykres przedstawia porównanie długości adresów URL. Widać, że adresy bezpieczne mają są dłuższe niż adresy niebezpieczne.
+}
+\section{Slajd 8.}
+{
+	W następnym wykresie mamy podany rozkład symboli w hoście adresu URL. Odczytujemy to podobnie jak macierz.
+}
+\section{Slajd 9.}
+{
+	Następnie poruszyliśmy kwestię porównania ilości znaków interpunkcyjnych w całości adresu. Widać, że w adresach złych występuje ich zazwyczaj więcej.
+}
+\section{Slajd 10.}
+{
+	
+}
+\section{Slajd 11.}
+{
+	Kolejny wykres przedstawia rozkład znaków w domenach. Odczytujemy to podobnie jak macierz.
+}
+\section{Slajd 12.}
+{
+	Patrząc na wykres gęstości ilości znaków interpunkcyjnych w linku widzimy, że gęstość ta jest większa dla adresów złych.
+}
+\section{Slajd 13.}
+{
+	Ostatnie dwa wykresy poruszą temat kodu JavaScript. Na pierwszym widać gęstość tego kodu dla stron dobrych jest wyższa ale sam kod jest krótszy. Natomiast dla stron złych długość kodu jest większa ale gęstość mniejsza. 
+}
+\section{Slajd 14.}
+{
+	Ostatni wykres w naszej analizie przedstawia związek pomiędzy długością kodu JavaScript a bezpieczeństwem domeny. Bierzemy tu pod uwagę długość kodu zaciemnionego. W domenach bezpiecznych długość kodu zaciemnionego jest na poziomie zerowym. Natomiast w złych widać od razu, że tego kodu jest dość dużo.
+}
+\section{Slajd 15.}
+{
+	Przeprowadzając powyższą analizę wiele się nauczyliśmy. Zauważyliśmy jakie związki leksykalne występują w przypadku domen złych. Wiemy jakie "zamiany" występują najczęściej. Przyglądając się linkom nie zawsze da się to wszystko wyłapać od razu. Zatem najważniejszym, ale nie jedynym, wnioskiem płynącym z naszego projektu jest fakt, że trzeba uważać w jakie linki się wchodzi.\\
+	~\\
+	Dostałeś/łaś podejrzanego maila? Nie otwieraj żadnych linków!
+}
+
+\end{document}
