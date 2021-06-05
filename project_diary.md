@@ -6,8 +6,9 @@
  - Przestudiowano literaturę związaną z Phishingiem, sposobem postępowania przestępców, szczegołową budową linków oraz dokumentację potrzebnych bibliotek programu R:
     - [*Malicious URL Filtering – A Big Data Application*](https://www.semanticscholar.org/paper/Malicious-URL-filtering-%E2%80%94-A-big-data-application-Lin-Chiu/c46092506e36d8d5e4bea3c7bf507b2bb3c079d1#paper-header). 
     - https://www.gov.pl/web/baza-wiedzy/czym-jest-phishing-i-jak-nie-dac-sie-nabrac-na-podejrzane-widomosci-e-mail-oraz-sms-y
-    - 
-    - 
+    - https://phishing.opcja.pl/
+    - https://cert.pl/posts/2020/03/ostrzezenia_phishing/
+    - https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
 Na główny artykuł wybrano pozycję [1]. Główną ideą eksperymentu, który prowadzili autorzy, było podzielenie domeny na składniki (*np. host, ścieżka do zasobu, ścieżka wyszukiwania*), a zatem obliczenie różnych "opisowych" parametrów każdej z tych części (*np. długość, liczba znaków interpunkcyjnych, entropia alfabetyczna*). 
 
 - Postawiono założenie, że gównym celem kodu będzie podział adresu URL na "części pierwsze". 
@@ -43,17 +44,20 @@ Wyjściowy plik można znaleźć za następującą ścieżką: `data/PhishStorm_
  
  - Przystąpiono do budowy prezentacji.
 
- - Dla każdego zbioru danych zostały obliczone wszystkie wcześniej przygotowane statystyki. Wejściowa baza danych i otrzymane wyniki zostały pomieszczone do wspólnej ramki danych (`fdfm` - [Mendeley Data](https://data.mendeley.com/datasets/gdx3pkwp47/2); `fdfp` - [PhishTank](https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset)). 
+ - Dla każdego zbioru danych zostały obliczone wszystkie wcześniej przygotowane statystyki. Wejściowa baza danych i otrzymane wyniki zostały umieszczone w wspólnej ramce danych (`fdfm` - [Mendeley Data](https://data.mendeley.com/datasets/gdx3pkwp47/2); `fdfp` - [PhishTank](https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset)). 
  
  - Za pomocą pakietów `ggplot2`, `ggExtra` i `lattice` narysowano 10 dwuwymiarowych wykresów. Pakiet `rgl` został użyty dla narysowania interaktywnego trójwymiarowego wykresu. 
 
  - Żeby wygenerować plik PDF, został utworzony również R Notebook, do którego została przepisana cała zawartość Jupyter Notebook.
  
- - Został stworzony notes dla przeprowadzenia prezentacji użytych funkcji.
+ - Został stworzony notes dla przeprowadzenia prezentacji o użytych funkcjach.
 
  - Stworzono plik README.
 
-
+ - Uzupełniono bibliografię o dokumentację i przykłady kodu:
+   - https://www.rdocumentation.org/
+   - https://stackoverflow.com/
+   - https://www.r-graph-gallery.com/about.html
 
 
  - Idee do ulepszenia:
