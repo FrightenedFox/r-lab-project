@@ -1,10 +1,10 @@
-# Phishing: how not to get caught?
+# Phishing: how not to get "caught"?
 
 ---
 
 *By Vitalii Morskyi & Julia Makarska*
 
-The phenomenon of phishing has been around for many years. However, the last year has shown how important internet security is among other things. Over a year ago the world stopped: everybody and everything was moved to the Internet. That motivated us to analyse the topic of Phishing. Usually phishers use email or SMS messages to deceive us and force us to act according to their expectations. The key points we want to emphasise in our research are how easy it is to get tricked and what are the common properties of malicious URLs. The aspects we analysed cover only a small piece of this cheating method, however we found the results to be interesting and hope you will as well. This file, however, is more about recreating the steps of our analysis, not reporting the final results. However, if you are interested in the latter one, please checkout the [demonstration folder](https://github.com/FrightenedFox/r-lab-project/tree/main/demonstration) or the [data-visualization.\* files](https://github.com/FrightenedFox/r-lab-project/blob/main/data-visualization.pdf). 
+The phenomenon of phishing has been around for many years. However, the last year has shown how important internet security is among other things. Over a year ago the world stopped: everybody and everything was moved to the Internet. That motivated us to analyse the topic of Phishing. Usually phishers use email or SMS messages to deceive us and force us to act according to their expectations. The key points we want to emphasise in our research are how easy it is to get tricked and what are the common properties of malicious URLs. The aspects we analysed cover only a small piece of this cheating method, however we found the results to be interesting and hope you will as well. This file, however, is more about recreating the steps of our analysis, not reporting the final results. However, if you are interested in the latter one, please checkout the [`demonstration` folder](https://github.com/FrightenedFox/r-lab-project/tree/main/demonstration) or the [`data-visualization.\*` files](https://github.com/FrightenedFox/r-lab-project/blob/main/data-visualization.pdf). 
 
 
 ## Setting up the environment
@@ -78,3 +78,6 @@ install.packages("rgl")
 - [R documentation](https://www.rdocumentation.org/)
 - [StackOverflow](https://stackoverflow.com/)
 - [R & Python Graph Gallery](https://www.r-graph-gallery.com/about.html)
+
+### Icons: 
+<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

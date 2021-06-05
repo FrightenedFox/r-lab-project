@@ -26,3 +26,5 @@
  - Żeby wygenerować ładny plik PDF, został utworzony również R Notebook, do którego została przepisana cała zawartość Jupyter Notebook.
  
  - Został stworzony notes dla przeprowadzenia prezentacji użytych funkcji
+
+ - Został utworzony nagłówek plakatu w postaci strony internetowej
