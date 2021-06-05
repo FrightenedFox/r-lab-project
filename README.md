@@ -55,6 +55,7 @@ install.packages("ggExtra")
 install.packages("hrbrthemes")
 install.packages("tidyverse")
 install.packages("rgl")
+install.packages("GGally")
 ```
 
 
@@ -78,6 +79,7 @@ install.packages("rgl")
 - [R documentation](https://www.rdocumentation.org/)
 - [StackOverflow](https://stackoverflow.com/)
 - [R & Python Graph Gallery](https://www.r-graph-gallery.com/about.html)
+- [ggpairs function](https://ggobi.github.io/ggally/reference/ggpairs.html)
 
 ### Icons: 
 <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
