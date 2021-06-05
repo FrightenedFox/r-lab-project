@@ -15,12 +15,12 @@
 \newtheorem{wn}{Wniosek}[section]
 \newtheorem{prz}{Przykład}[section]
 
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead{} % wszystkie nagłówki puste
-\fancyfoot[L]{Julia Makarska}
-\fancyfoot[C]{\empty} % numeracja stron
-\renewcommand{\headrulewidth}{0.0pt} % grubość linii
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead{} % wszystkie nagłówki puste
+%\fancyfoot[L]{Julia Makarska}
+%\fancyfoot[C]{\empty} % numeracja stron
+%\renewcommand{\headrulewidth}{0.0pt} % grubość linii
 %\pagestyle{myheadings} - numeracja stron
 
 \usepackage{pgf,tikz,pgfplots}
@@ -53,7 +53,7 @@
 		\begin{center}
 			Politechnika Rzeszowska\\
 			Wydział Matematyki i Fizyki Stosowanej\\
-			Ekonomia
+			Programowanie w R
 		\end{center}
 		\vspace{3cm}
 		\noindent
@@ -71,8 +71,8 @@
 	\end{titlepage}
 }
 \makeatother
-\author{Makarska Julia\\Grupa C2\\Matematyka}
-\title{Ekonomia - ćwiczenia}
+\author{Vitalii Morskyi\\Makarska Julia\\Grupa L04\\Inżynieria i analiza danych}
+\title{Projekt w R - notatki do prezentacji}
 
 \begin{document}
 	\maketitle	
@@ -94,5 +94,54 @@
 {
 	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
 }
+\section{Slajd 4.}
+{
+	Głównym założeniem naszego projektu jest analiza adresu URL pod kątem niebezpiecznych kombinacji znakowych. Skupiamy się głównie na takich częściach URL jak:
+	\begin{itemize}
+		\item protocol (schemat)
+		\item domain name (nazwa serwera)
+		\item path (ścieżka do pliku)
+		\item query (zapytanie)
+		\item fragment (fragment)
+	\end{itemize}
+	Części te zostały wybrane z względu na to, że skupiamy się na analizie leksykalnej.\\
+	Następnie części te badamy pod kątem:
+	\begin{itemize}
+		\item długości
+		\item statystyki długości:
+			\begin{itemize}
+				\item nazwa domeny do adresu URL
+				\item ścieżka do adresu URL
+				\item argument do adresu URL
+				\item ścieżka do nazwy domeny
+				\item argument do nazwy domeny
+				\item argument do ścieżki
+			\end{itemize}
+		\item ciągu znaków postaci litera-cyfra-litera
+		\item ciągu znaków postaci cyfra-litera-cyfra
+		\item połączenia powyższych ciągów
+		\item liczby liter
+		\item liczby cyfr
+		\item liczby znaków interpunkcyjnych
+	\end{itemize}
+	Wybraliśmy dwa pliki i zmodernizowaliśmy tak by odpowiadały badanym cechom.
+}
+\section{Slajd 5.}
+{
+	Przejdziemy teraz do prezentacji kodu.
+}
+\section{Slajd 6.}
+{
+	
+}
+\section{Slajd 4.}
+{
+	
+}
+\section{Slajd 4.}
+{
+	
+}
+
 
 \end{document}
