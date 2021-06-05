@@ -28,3 +28,7 @@
  - Został stworzony notes dla przeprowadzenia prezentacji użytych funkcji
 
  - Został utworzony nagłówek plakatu w postaci strony internetowej
+
+ - Wszystkie wykresy zostały wyeksportowane w postaci plików `.png`. Niestety w trakcie wyeksportowania wystąpiły dwa kolejne problemy:
+    - Nie udało się zmienić kolor tła na wykresie "Porównanie podejrzanych ciągów w adresach URL", więc nie będzie on dodany do prezentacji
+    - wykresy tworzone przez pakiet `lattice` bardzo ciężko wyeksportować w porządnej rozdzielczości (jakości), więc zostały one przepisane za pomocą pakietu `ggplot2`.
