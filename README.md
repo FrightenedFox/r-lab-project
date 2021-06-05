@@ -1,11 +1,8 @@
 <p align="center">
-  <img src="./images/browser_README_450dpi.png" alt="Phishing: how not to get 'caught'?" width="738">
+  <img src="./images/browser_README_450dpi.png" alt="Phishing: how not to get 'caught'?">
 </p>
 
-
 # Phishing: how not to get "caught"?
-
----
 
 *By Vitalii Morskyi & Julia Makarska*
 
@@ -13,8 +10,6 @@ The phenomenon of phishing has been around for many years. However, the last yea
 
 
 ## Setting up the environment
-
----
 
 The main analysis is made using **Jupyter Notebook** which is usually used with Python, but also supports R.  
 So, to get things work properly, you would have to install some R and Python packages.
@@ -66,8 +61,6 @@ install.packages("GGally")
 
 ## References
 
----
-
 ### Data sets:
 - [PhishTank](https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset)
 - [MendeleyData](https://data.mendeley.com/datasets/gdx3pkwp47/2)
@@ -90,3 +83,6 @@ install.packages("GGally")
 - [Free SVG](https://freesvg.org/)
 - [Canva](https://www.canva.com/)
 - [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect), [Freepik](https://www.freepik.com), [Becris](https://creativemarket.com/Becris), [bqlqn](https://www.flaticon.com/authors/bqlqn)  from [Flaticon](https://www.flaticon.com/)
+
+---
+
