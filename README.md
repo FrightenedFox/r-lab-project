@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="./images/browser_README_450dpi.png" alt="Phishing: how not to get 'caught'?" width="738">
+</p>
+
+
 # Phishing: how not to get "caught"?
 
 ---
@@ -81,5 +86,7 @@ install.packages("GGally")
 - [R & Python Graph Gallery](https://www.r-graph-gallery.com/about.html)
 - [ggpairs function](https://ggobi.github.io/ggally/reference/ggpairs.html)
 
-### Icons: 
-<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+### Icons and poster: 
+- [Free SVG](https://freesvg.org/)
+- [Canva](https://www.canva.com/)
+- [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect), [Freepik](https://www.freepik.com), [Becris](https://creativemarket.com/Becris), [bqlqn](https://www.flaticon.com/authors/bqlqn)  from [Flaticon](https://www.flaticon.com/)
