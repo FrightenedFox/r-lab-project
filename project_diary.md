@@ -41,9 +41,17 @@ Wyjściowy plik można znaleźć za następującą ścieżką: `data/PhishStorm_
 
  - Została zaimplementowana funkcja do liczenia, oddzielnie ilości liter, cyfr i znaków interpunkcyjnych (funkcja `lett_dig_symb_count()` w pliku *`modules/url-special-symbol-count.r`*)
  
- - Prystąpiono do budowy prezentacji.
+ - Przystąpiono do budowy prezentacji.
 
+ - Dla każdego zbioru danych zostały obliczone wszystkie wcześniej przygotowane statystyki. Wejściowa baza danych i otrzymane wyniki zostały pomieszczone do wspólnej ramki danych (`fdfm` - [Mendeley Data](https://data.mendeley.com/datasets/gdx3pkwp47/2); `fdfp` - [PhishTank](https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset)). 
+ 
+ - Za pomocą pakietów `ggplot2`, `ggExtra` i `lattice` narysowano 10 dwuwymiarowych wykresów. Pakiet `rgl` został użyty dla narysowania interaktywnego trójwymiarowego wykresu. 
 
+ - Żeby wygenerować plik PDF, został utworzony również R Notebook, do którego została przepisana cała zawartość Jupyter Notebook.
+ 
+ - Został stworzony notes dla przeprowadzenia prezentacji użytych funkcji.
+
+ - Stworzono plik README.
 
 
 
