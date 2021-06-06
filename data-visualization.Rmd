@@ -6,10 +6,10 @@ output:
   html_notebook: default
 ---
 
-\#TODO: trzeba będzie tu coś ładnego zrobić i ewentualnie poprawnie podać temat projektu bo chyba zapomniałem jak to powinno wyglądać
+Zjawisko Phishingu zachodzi już od wielu lat. Jednak między innymi ostatni rok pokazał nam jak ważne jest bezpieczeństwo w internecie. Od roku świat się zatrzymał i przeniósł wszystko do Internetu. Z uwagi na ten fakt podjęcie tematu Phishingu uznaliśmy za bardzo na miejscu. Chcemy pokazać jak łatwo można dać się okraść. Przedstawiony przez nas projekt obejmuje tylko niewielki kawałek tej metody oszustwa, jednak uznaliśmy, że temat jest ciekawy.
+Phishing jest to atak oparty na wiadomościach e-mail lub SMS. Przestępcy internetowi próbują Cię oszukać i wymusić na Tobie działania zgodne z ich oczekiwaniami.
 
-
-## Importowanie danych, pakietów R i modułów
+# Importowanie danych, pakietów R i modułów
 
 ---
 
@@ -21,6 +21,8 @@ library("ggplot2")
 library("ggExtra")
 library("hrbrthemes")
 library("rgl")
+library("tidyverse")
+library("GGally")
 
 source("modules/split-url.r")
 source("modules/url-ambiguity.r")
@@ -40,14 +42,14 @@ head(dfp)
 ```
 
 
-# Wstępne przygotowanie danych
+# Wstępne przygotowanie danych.
 
 ---
 
-Muszemy przeprowadzić wstępną edycję datasetów, ponieważ na pierwszy rzut widać, że:
+Przeprowadzono wstępną edycję datasetów, ponieważ na pierwszy rzut widać, że:
  - wejściowe ramki danych zawierają zbędne kolumny, których nie uwzględniamy w naszej analizie
  - mają różne nazwy najważniejszych dla naszej analizy kolumn - *domain* i *url*
- - otagowanie domen w zbiorze danych *"PhishTank"* nie jest zbyt zrozumiałym dla człowieka
+ - otagowanie domen w zbiorze danych *"PhishTank"* nie jest zbyt zrozumiałe
  
 ```{r}
 dfm[c("content", "url_len", "ip_add")] <- NULL
@@ -55,14 +57,14 @@ head(dfm)
 ```
 
 W ramce danych `dfm` pozostawiamy następujące kolumny:
- - url
- - geo_loc 
- - ...
-
-\#TODO: dodać wszystkie pozostałe kolumny + opisać ich oznaczenia korzystając [z tej strony](https://data.mendeley.com/datasets/gdx3pkwp47/2)
-
-\#TODO: zrobić analogiczny opis dla poniższej komórki tym rzem używając tabelki nr. V [z tego artykułu](https://www.researchgate.net/publication/273169788_PhishStorm_Detecting_Phishing_With_Streaming_Analytics). *(mld = main level domain = host, podmiot; ps = public suffix)*
-
+ - url - Adres URL strony internetowej.
+ - geo_loc - Lokalizacja geogreficzna, w której jest hostowana strona internetowa.
+ - tld - Domena najwyższego poziomu strony internetowej.
+ - who_is - Czy informacje o domenie WHO IS są konkurencyjne, czy nie.
+ - https - Czy witryna korzysta z https czy http. 
+ - js_len - Długość kodu JavaScript na stronie.
+ - js_obf_len - Długość zaciemnionego kodu JavaScript.
+ - label - Etykieta klasy dla niegroźnej lub złośliwej strony internetowej.
 
 ```{r}
 colnames(dfp)[1] <- "url"
@@ -78,19 +80,24 @@ levels(dfp$mld.ps_res) <- c("no", "yes")
 head(dfp)
 ```
 
+W ramce danych `dfp` pozostawiamy następujące kolumny:
+ - url - Adres URL strony internetowej.
+ - ranking - Ranking mld.ps według rankingu witryny [Alexa](http://www.alexa.com/).
+ - mld_res - Czy są wyniki wyszukiwania czy nie dla mld w adresie URL.
+ - mld.ps_res - Czy są wyniki wyszukiwania czy nie dla mld.ps w adresie URL.
+ - label - Etykieta klasy dla niegroźnej lub złośliwej strony internetowej.
 
-# Obliczanie badanych statystyk (cech?)
+
+# Obliczanie badanych cech.
 
 ---
 
 Najpierw dzielimy link na następujące części: |  *`split_url()`* oraz *`clean_split_url()`*
  - protocol *(schemat)*
- - domain name *(podmiot)*
- - path *(ścieżka)* 
+ - domain name *(nazwa serwera)*
+ - path *(ścieżka do pliku)* 
  - query *(zapytanie)*
  - fragment *(fragment)*
-
-*P.s: tłumaczenie części domen wziąłem [z tej strony](https://pl.wikipedia.org/wiki/Uniform_Resource_Identifier), więc nie wiem na ile jest OK*
  
 
 
@@ -105,22 +112,18 @@ split_res[20:29,]
 Bierzemy pod uwage następujące cechy każdej z wymienionych powyżej części:
  - długość  |  *`url_lengths()`*
  - następujące stosunki długości:  |  *`url_lengths()`*
-    - Domain Name divided by URL 
-    - Path divided by URL
-    - Argument divided by URL
-    - Path divided by Domain Name
-    - Argument divided by Domain Name
-    - Argument divided by Path  
+    - Domain Name divided by URL (Nazwa domeny w stosunku do adresu URL)
+    - Path divided by URL (Ścieżka w stosunku do adresu URL)
+    - Argument divided by URL (Argument w stosunku do adresu URL)
+    - Path divided by Domain Name (Ścieżka podzielona według nazwy domeny)
+    - Argument divided by Domain Name (Argument w stosunku do nazwy domeny)
+    - Argument divided by Path (Argument w stosunku do ścieżki)
  - ciąg znaków postaci `litera-cyfra-litera`  |  *`letter_digit_letter()`*
  - ciąg znaków postaci `cyfra-litera-cyfra`  |  *`digit_letter_digit()`*
- - połączenie dwóch poprzednich metryk  |  *`combined_url_ambiguity()`*
+ - połączenie dwóch poprzednich ciągów  |  *`combined_url_ambiguity()`*
  - liczba liter  |  *`lett_dig_symb_count()`*
  - liczba cyfr  |  *`lett_dig_symb_count()`*
  - liczba znaków interpunkcyjnych  |  *`lett_dig_symb_count()`*
- 
-
-\#TODO: przydałoby się przetłumaczyć te stosunki długości i opisać te statystyki (chyba mamy identyczny temat w prezentacji, więc można po prostu skopiować to stąd) 
-
 
 ```{r}
 lengths_res <- url_lengths(split_res)
@@ -137,7 +140,8 @@ ldsc_res[20:29,]
 
 ---
 
-Powtarzamy analogiczne obliczenia dla drugiego zbioru danych, ale tym razem już nie będziemy wyświetlać wyniki każdego obliczenia
+Powtarzamy analogicznie, obliczenia dla drugiego zbioru danych, ale tym razem już nie będziemy wyświetlać wyników każdego obliczenia.
+
 
 ```{r}
 split_res_2 <- clean_split_url(dfm$url)
@@ -148,11 +152,11 @@ xyx_res_2 <- combined_url_ambiguity(split_res_2)
 ldsc_res_2 <- lett_dig_symb_count(split_res_2)
 ```
 
-# Zebranie wszystkich parametrów do jednej ramki danych
+# Zebranie wszystkich parametrów do jednej ramki danych.
 
 ---
 
-Najpierw tworzymy jedną macierz z wynikami wszystkich obliczeń, którą zatem konwertujemy w ramkę danych.
+Najpierw tworzymy jedną macierz z wynikami wszystkich obliczeń, którą potem konwertujemy w ramkę danych.
 
 
 ```{r}
@@ -173,10 +177,9 @@ params_df_2 <- as.data.frame(cbind(
 dim(params_df)
 ```
 
-
 ---
 
-Otrzymaliśmy dość dużą ramkę danych, więc przydałoby się ją troszkę zmniejszyć. Po przeanalizowaniu jej struktury  widzimy, że niektóre kolumny posiadają 0 poziomów, czyli nie przechowują żadnej informacji, więc możemy ich usunąć. Zatem możemy połączyć wejścjiową ramkę danych z otrzymaną. Dokonujemy analogicznych działań dla obu datasetów.
+Otrzymano dość dużą ramkę danych, więc przydałoby się ją troszkę zmniejszyć. Po przeanalizowaniu jej struktury  zauważono, że niektóre kolumny posiadają 0 poziomów, czyli nie przechowują żadnej informacji, więc można je usunąć. Zatem można połączyć wejściową ramkę danych z otrzymaną. Dokonano analogicznych działań dla obu zbioró danych.
 
 ---
 
@@ -201,22 +204,41 @@ cat("First DataFrame dimensions (dfdp): \n", dim(fdfp),
 
 \newpage
 
-# Wizualizacja wyników analizy
+# Wizualizacja wyników analizy.
 
 ---
 
 ```{r}
+fdfm[fdfm$label == "bad", "color"] <- '#6dd38c'
+fdfm[fdfm$label == "good", "color"] <- '#f3aca7'
+
+fdfp[fdfp$label == "bad", "color"] <- '#6dd38c'
+fdfp[fdfp$label == "good", "color"] <- '#f3aca7'
+
+# ggsave(
+#   "images/plot_1.png",
+#   plot = last_plot(),
+#   device = "png",
+#   path = NULL,
+#   scale = 1.2,  
+#   #  width = 300,
+#   #  height = 300,
+#   #  units = "mm",
+#   dpi = 400,
+#   bg = "transparent"
+# )
+
 data_distribution_df <- data.frame(counts = c(sum(fdfp$label == "good"), sum(fdfp$label == "bad")),
                                    labels = c("good", "bad"))
 ggplot(data_distribution_df, aes(x = "", y = counts, fill = labels)) +
   geom_bar(stat = "identity", width = 1, color = "white") +
   coord_polar("y", start = 0) + 
-  theme_void() + ggtitle("Dystrybucja domen w zbiorze danych \"PhishStorm\"") +
+  theme_void() + ggtitle("Porównanie bezpieczeństwa domen w zbiorze danych \"PhishStorm\".") +
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)) + 
-  labs(color = "Etykieta")
+  labs(fill = "Etykieta", color = "Etykieta")
 ```
 
 \newpage
@@ -227,12 +249,13 @@ data_distribution_df2 <- data.frame(counts = c(sum(fdfm$label == "good"), sum(fd
 ggplot(data_distribution_df2, aes(x = "", y = counts, fill = labels)) +
   geom_bar(stat = "identity", width = 1, color = "white") +
   coord_polar("y", start = 0) + 
-  theme_void()  + ggtitle("Dystrybucja domen w poprzednio przygotowanym\nzbiorze danych \"Mendeley Data\"") +
+  theme_void() + 
+  ggtitle("Porównanie bezpieczeństwa domen w poprzednio przygotowanym\nzbiorze danych \"Mendeley Data\".") +
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)) + 
-  labs(color = "Etykieta")
+  labs(fill = "Etykieta", color = "Etykieta")
 ```
 
 \newpage
@@ -242,11 +265,15 @@ ggplot(fdfp[fdfp$url_l < 500, ], aes(x = label, y = url_l, group = label, fill =
   geom_violin() +
   ylab("Długość linku") + 
   xlab("Etykieta") + 
-  ggtitle("Dystrybucja długości adresów URL") +
+  ggtitle("Porównanie długości adresów URL.") +
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
+                                  size = 12),
+        # panel.background = element_rect(fill = "#f0bc5e", colour = "black")
+        # rect = element_rect(fill = "#d8d7c4") 
+  ) + 
+ scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
   labs(color = "Etykieta")
 ```
 
@@ -256,16 +283,38 @@ ggplot(fdfp[fdfp$url_l < 500, ], aes(x = label, y = url_l, group = label, fill =
 splom(~data.frame(xyx_host, lett_host, dig_host, symb_host), 
       data = fdfp[sample(nrow(fdfp), 1000),],
       pch = 1,
-      main = "Rozkład symboli w hoscie URLi (host part of the URL)",
+      main = "Rozkład symboli w hoscie adresu URL (host part of the URL).",
       groups = label,
 #       xlab = c("A", "B", "C", "D"),
 #       xlab = "", # czymś takim można usunąńć ten napis "Scatter Plot Matrix"
 #       ylab = c("A", "B", "C", "D"),
       pscales = 0,
       auto.key = list(columns = 2),
-      varnames = c("Liczba ciągów\npostaci XYX", "Liczba lieter", 
-                   "Liczba cyfr", "Liczba znaków\ninterpunkcyjnych")
+      varnames = c("Ilość ciągów\npostaci XYX", "Ilość liter", 
+                   "Ilość cyfr", "Liczba znaków\ninterpunkcyjnych")
       )
+```
+
+\newpage
+
+```{r}
+ggpairs(fdfp[fdfp$url_l < 500 & sample(nrow(fdfp), 500), ], 
+        aes(color = color,
+            alpha = .5),
+        columns = c("xyx_host", "lett_host", "dig_host", "symb_host"),
+        columnLabels = c("Ilość ciągów\npostaci XYX", 
+                         "Ilość liter", 
+                         "Ilość cyfr",
+                         "Liczba znaków\ninterpunkcyjnych")) +
+  ggtitle("Rozkład symboli w hoscie adresu URL.") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        #rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  labs(color = "Etykieta")
 ```
 
 \newpage
@@ -285,12 +334,31 @@ histogram(~ symb_url  | label  ,
 \newpage
 
 ```{r}
+ggplot(fdfp[fdfp$url_l < 500, ], aes(x = symb_url, fill = label)) + 
+  geom_histogram(binwidth = 2, alpha = 0.6, position = 'identity') +
+  ylab("Ilość wystąpień") + 
+  xlab("Ilość symboli w adresie URL") + 
+  ggtitle("Porównanie ilości znaków interpunkcyjnych\nw dobrych i złych domenach.") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)
+        # panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        # rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
+  labs(fill = "Etykieta", color = "Etykieta")
+```
+
+\newpage
+
+```{r}
 p <- ggplot(fdfp[fdfp$url_l < 1000, ], aes(x = xyx_query, y = xyx_url, color = label)) +
     geom_point(alpha = .7, na.rm = TRUE) + 
     theme(legend.position = "left") +
-    ylab("Letter-Digit-Letter lub Digit-Letter-Digit w całym URL") + 
+    ylab("Letter-Digit-Letter lub Digit-Letter-Digit w całym adresie URL") + 
     xlab("Letter-Digit-Letter lub Digit-Letter-Digit w zapytaniu") + 
-    ggtitle("Dystrybucja podejrzewanych ciągów w adresach URL") +
+    ggtitle("Porównanie podejrzanych ciągów w adresach URL.") +
     theme(plot.title = element_text(family = "", 
                                     face = 'bold', 
                                     colour = 'black', 
@@ -306,7 +374,7 @@ ggMarginal(p, type = "histogram")
 splom(~data.frame(host_l, path_l, query_l, fragment_l, xyx_host, xyx_path, xyx_query), 
       data = fdfp[sample(nrow(fdfp), 2000),],
       pch = 1,
-      main = "Rozkład znaków w domenach",
+      main = "Rozkład znaków w domenach.",
       groups = label,
       pscales = 0,
       auto.key = list(columns = 2),
@@ -318,17 +386,22 @@ splom(~data.frame(host_l, path_l, query_l, fragment_l, xyx_host, xyx_path, xyx_q
 
 \newpage
 
+
 ```{r}
 ggplot(data = fdfp[fdfp$url_l < 200, ], aes(x = symb_url, group = label, fill = label)) +
   geom_density(adjust = 5, alpha = .4) +
   ylab("Gęstość") + 
   xlab("Ilość znaków interpunkcyjnych w linku") + 
-  ggtitle("Gęstość ilości znaków interpunkcyjnych w linkach") +
+  ggtitle("Gęstość ilości znaków interpunkcyjnych w linkach") + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
-  labs(color = "Etykieta")
+                                  size = 12)
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        #rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
+  labs(fill = "Etykieta", color = "Etykieta")
 ```
 
 \newpage
@@ -336,14 +409,18 @@ ggplot(data = fdfp[fdfp$url_l < 200, ], aes(x = symb_url, group = label, fill = 
 ```{r}
 ggplot(data = fdfm, aes(x = js_len, group = label, fill = label)) +
   geom_density(adjust = 1, alpha = .4) +
-  ylab("Gęstość") + 
-  xlab("Długość kodu JavaScript") + 
-  ggtitle("Gęstość długości kodu JavaScript na stronach") +
+  ylab("Gęstość") +
+  xlab("Długość kodu JavaScript") +
+  ggtitle("Gęstość długości kodu JavaScript na stronach internetowych.") + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
-  labs(color = "Etykieta")
+                                  size = 12)
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        #rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#f3aca7", "#6dd38c")) +
+  labs(fill = "Etykieta", color = "Etykieta")
 ```
 
 \newpage
@@ -353,12 +430,16 @@ ggplot(data = fdfm, aes(x = js_len, y = js_obf_len, color = label) ) +
   geom_point() +
   ylab("Długość zaciemnionego kodu JavaScript.") + 
   xlab("Długość kodu JavaScript") + 
-  ggtitle("Związek pomiędzy długością kodu JavaScript\na biezpiecznością domen") +
+  ggtitle("Związek pomiędzy długością kodu JavaScript\na biezpiecznością domen")  + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
-  labs(color = "Etykieta")
+                                  size = 12)
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        #rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
+  labs(fill = "Etykieta", color = "Etykieta")
 ```
 
 \newpage

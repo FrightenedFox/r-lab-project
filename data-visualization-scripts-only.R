@@ -6,6 +6,7 @@
 # install.packages("hrbrthemes")
 # install.packages("tidyverse")
 # install.packages("rgl")
+# install.packages("GGally")
 
 library("stringi")
 library("stringr")
@@ -14,6 +15,8 @@ library("ggplot2")
 library("ggExtra")
 library("hrbrthemes")
 library("rgl")
+library("tidyverse")
+library("GGally")
 
 source("modules/split-url.r")
 source("modules/url-ambiguity.r")
@@ -92,14 +95,23 @@ cat("First DataFrame dimensions (dfdp): \n", dim(fdfp),
 
 cat(c(colnames(fdfp), "\n\n\n", colnames(fdfm)), sep = ", ")
 
+fdfm[fdfm$label == "bad", "color"] <- '#6dd38c'
+fdfm[fdfm$label == "good", "color"] <- '#f3aca7'
 
+fdfp[fdfp$label == "bad", "color"] <- '#6dd38c'
+fdfp[fdfp$label == "good", "color"] <- '#f3aca7'
 
 data_distribution_df <- data.frame(counts = c(sum(fdfp$label == "good"), sum(fdfp$label == "bad")),
                                    labels = c("good", "bad"))
 ggplot(data_distribution_df, aes(x = "", y = counts, fill = labels)) +
   geom_bar(stat = "identity", width = 1, color = "white") +
   coord_polar("y", start = 0) + 
-  theme_void() 
+  theme_void() + ggtitle("Porównanie bezpieczeństwa domen w zbiorze danych \"PhishStorm\".") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(fill = "Etykieta", color = "Etykieta")
 
 
 
@@ -108,76 +120,122 @@ data_distribution_df2 <- data.frame(counts = c(sum(fdfm$label == "good"), sum(fd
 ggplot(data_distribution_df2, aes(x = "", y = counts, fill = labels)) +
   geom_bar(stat = "identity", width = 1, color = "white") +
   coord_polar("y", start = 0) + 
-  theme_void()
+  theme_void() + 
+  ggtitle("Porównanie bezpieczeństwa domen w poprzednio przygotowanym\nzbiorze danych \"Mendeley Data\".") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12)) + 
+  labs(fill = "Etykieta", color = "Etykieta")
 
 
 ggplot(fdfp[fdfp$url_l < 500, ], aes(x = label, y = url_l, group = label, fill = label)) + 
   geom_violin() +
   ylab("Długość linku") + 
   xlab("Etykieta") + 
-  ggtitle("Dystrybucja długości adresów URL") +
+  ggtitle("Porównanie długości adresów URL.") +
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
+                                  size = 12),
+        rect = element_rect(fill = "#d8d7c4"),
+        #plot.background = element_rect(fill = "#d8d7c4"), 
+        panel.background = element_rect(fill = "#f0bc5e", colour = "black")
+  ) + 
   labs(color = "Etykieta")
+
 
 
 splom(~data.frame(xyx_host, lett_host, dig_host, symb_host), 
       data = fdfp[sample(nrow(fdfp), 1000),],
       pch = 1,
-      main = "Rozkład symboli w hoscie URLi (host part of the URL)",
+      main = "Rozkład symboli w hoscie adresu URL.",
       groups = label,
       #       xlab = c("A", "B", "C", "D"),
       #       xlab = "", # czymś takim można usunąńć ten napis "Scatter Plot Matrix"
       #       ylab = c("A", "B", "C", "D"),
       pscales = 0,
       auto.key = list(columns = 2),
-      varnames = c("Liczba ciągów\npostaci XYX", "Liczba lieter", 
-                   "Liczba cyfr", "Liczba znaków\ninterpunkcyjnych")
+      varnames = c("Ilość ciągów\npostaci XYX", "Ilość liter", 
+                   "Ilość cyfr", "Liczba znaków\ninterpunkcyjnych")
 )
 
+ggpairs(fdfp[fdfp$url_l < 500 & sample(nrow(fdfp), 1000), ], 
+        aes(color = color,
+            alpha = .5),
+        columns = c("xyx_host", "lett_host", "dig_host", "symb_host"),
+        columnLabels = c("Ilość ciągów\npostaci XYX", 
+                         "Ilość liter", 
+                         "Ilość cyfr",
+                         "Liczba znaków\ninterpunkcyjnych")) +
+  ggtitle("Rozkład symboli w hoscie adresu URL.") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12),
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  labs(color = "Etykieta")
 
 
 histogram(~ symb_url  | label  , 
           data = fdfp[sample(nrow(fdfp), 2000),],
-          main = "Porównanie liczba znaków interpunkcyjnych\nw dobrych i złych domenach",
-          xlab = "Ilość symboli w URL",
+          main = "Porównanie ilości znaków interpunkcyjnych\nw dobrych i złych domenach.",
+          xlab = "Ilość symboli w adresie URL",
           ylab = "Procent całości",
           layout = c(1, 2),
           nint = 20,
           xlim = c(0, 50)
 )
 
+ggplot(fdfp[fdfp$url_l < 500, ], aes(x = symb_url, fill = label)) + 
+  geom_histogram(binwidth = 2, alpha = 0.6, position = 'identity') +
+  ylab("Ilość wystąpień") + 
+  xlab("Ilość symboli w adresie URL") + 
+  ggtitle("Porównanie ilości znaków interpunkcyjnych\nw dobrych i złych domenach.") +
+  theme(plot.title = element_text(family = "", 
+                                  face = 'bold', 
+                                  colour = 'black', 
+                                  size = 12),
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
+  labs(fill = "Etykieta", color = "Etykieta")
+
 
 
 ggplot(data = fdfm, aes(x = js_len, group = label, fill = label)) +
   geom_density(adjust = 1, alpha = .4) +
-  ylab("Gęstość") + 
-  xlab("Długość kodu JavaScript") + 
-  ggtitle("Gęstość długości kodu JavaScript na stronach") +
+  ylab("Gęstość") +
+  xlab("Długość kodu JavaScript") +
+  ggtitle("Gęstość długości kodu JavaScript na stronach internetowych.") + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
-  labs(color = "Etykieta")
+                                  size = 12),
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#f3aca7", "#6dd38c")) +
+  labs(fill = "Etykieta", color = "Etykieta")
 
 
 
 p <- ggplot(fdfp[fdfp$url_l < 1000, ], aes(x = xyx_query, y = xyx_url, color = label)) +
   geom_point(alpha = .7, na.rm = TRUE) + 
   theme(legend.position = "left") +
-  ylab("Letter-Digit-Letter lub Digit-Letter-Digit w całym URL") + 
+  ylab("Letter-Digit-Letter lub Digit-Letter-Digit w całym adresie URL") + 
   xlab("Letter-Digit-Letter lub Digit-Letter-Digit w zapytaniu") + 
-  ggtitle("Dystrybucja podejrzewanych ciągów w adresach URL") +
+  ggtitle("Porównanie podejrzanych ciągów w adresach URL.") +
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)) + 
-  labs(color = "Etykieta")
+  labs(fill = "Etykieta", color = "label")
 
 ggMarginal(p, type = "histogram")
-
 
 
 
@@ -199,12 +257,16 @@ ggplot(data = fdfp[fdfp$url_l < 200, ], aes(x = symb_url, group = label, fill = 
   geom_density(adjust = 5, alpha = .4) +
   ylab("Gęstość") + 
   xlab("Ilość znaków interpunkcyjnych w linku") + 
-  ggtitle("Gęstość ilości znaków interpunkcyjnych w linkach") +
+  ggtitle("Gęstość ilości znaków interpunkcyjnych w linkach") + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
-  labs(color = "Etykieta")
+                                  size = 12),
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
+  labs(fill = "Etykieta", color = "Etykieta")
 
 
 
@@ -212,19 +274,34 @@ ggplot(data = fdfm, aes(x = js_len, y = js_obf_len, color = label) ) +
   geom_point() +
   ylab("Długość zaciemnionego kodu JavaScript.") + 
   xlab("Długość kodu JavaScript") + 
-  ggtitle("Związek pomiędzy długością kodu JavaScript\na biezpiecznością domen") +
+  ggtitle("Związek pomiędzy długością kodu JavaScript\na biezpiecznością domen")  + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12)) + 
-  labs(color = "Etykieta")
+                                  size = 12),
+        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+        rect = element_rect(fill = "#d8d7c4")
+  ) + 
+  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
+  labs(fill = "Etykieta", color = "Etykieta")
+
+
+# ggsave(
+#   "images/plot_8.png",
+#   plot = last_plot(),
+#   device = "png",
+#   path = NULL,
+#   scale = 1,  
+#   #  width = 300,
+#   #  height = 300,
+#   #  units = "mm",
+#   dpi = 400,
+#   bg = "transparent"
+# )
 
 
 
-fdfm[fdfm$label == "bad", "color"] <- 'red'
-fdfm[fdfm$label == "good", "color"] <- 'darkcyan'
-
-# Plot
+# 3D plot
 par(mar = c(0,0,0,0))
 plot3d( 
   x = fdfm$js_len, y = fdfm$js_obf_len, z = fdfm$url_len, 
@@ -232,3 +309,6 @@ plot3d(
   type = 's', 
   radius = 30,
   xlab = "JS", ylab = "JS obf ", zlab = "URL")
+rgl.bg( sphere = FALSE, fogtype = "none", color = c("#d8d7c4", "black"), 
+        back = "lines", fogScale = 1)
+
