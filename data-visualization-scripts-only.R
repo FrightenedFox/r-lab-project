@@ -274,7 +274,7 @@ ggplot(data = fdfm, aes(x = js_len, y = js_obf_len, color = label) ) +
   geom_point() +
   ylab("Długość zaciemnionego kodu JavaScript.") + 
   xlab("Długość kodu JavaScript") + 
-  ggtitle("Związek pomiędzy długością kodu JavaScript\na biezpiecznością domen")  + 
+  ggtitle("Związek pomiędzy długością kodu JavaScript\na bezpieczeństwem domen")  + 
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
@@ -298,7 +298,6 @@ ggplot(data = fdfm, aes(x = js_len, y = js_obf_len, color = label) ) +
 #   dpi = 400,
 #   bg = "transparent"
 # )
-
 
 
 # 3D plot
