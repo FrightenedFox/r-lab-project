@@ -6,7 +6,7 @@
 
 *By Vitalii Morskyi & Julia Makarska*
 
-The phenomenon of phishing has been around for many years. However, the last year has shown how important internet security is among other things. Over a year ago the world stopped: everybody and everything was moved to the Internet. That motivated us to analyse the topic of Phishing. Usually phishers use email or SMS messages to deceive us and force us to act according to their expectations. The key points we want to emphasise in our research are how easy it is to get tricked and what are the common properties of malicious URLs. The aspects we analysed cover only a small piece of this cheating method, however we found the results to be interesting and hope you will as well. This file, however, is more about recreating the steps of our analysis, not reporting the final results. However, if you are interested in the latter one, please checkout the [`demonstration` folder](https://github.com/FrightenedFox/r-lab-project/tree/main/demonstration) or the [`data-visualization.\*` files](https://github.com/FrightenedFox/r-lab-project/blob/main/data-visualization.pdf). 
+The phenomenon of phishing has been around for many years. However, the last year has shown how important internet security is among other things. Over a year ago the world stopped: everybody and everything was moved to the Internet. That motivated us to analyse the topic of Phishing. Usually phishers use email or SMS messages to deceive us and force us to act according to their expectations. The key points we want to emphasise in our research are how easy it is to get tricked and what are the common properties of malicious URLs. The aspects we analysed cover only a small piece of this cheating method, however we found the results to be interesting and hope you will as well. This file, however, is more about recreating the steps of our analysis, not reporting the final results. However, if you are interested in the latter one, please checkout the [`demonstration`](https://github.com/FrightenedFox/r-lab-project/tree/main/demonstration) folder or the [`data-visualization.\*`](https://github.com/FrightenedFox/r-lab-project/blob/main/data-visualization.pdf) files. 
 
 
 ## Setting up the environment
@@ -43,7 +43,7 @@ First of all you need [Python](https://www.python.org/downloads/) 3.5 or greater
 
 For more ways of installing `JupyterLab` please checkout [this page](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html).
 
-### Running the JupyterLab environment<a name="RunJupyterLab"></a
+### Running the JupyterLab environment
 
 Assuming R-essentials are installed you can use one of the following commands to open JupyterLab environment:
 
@@ -78,7 +78,7 @@ install.packages("rgl")
 install.packages("GGally")
 ```
 
-Note: if any problems occur while installing those packages try creating a separate `Conda Environment` specially for this project. To do so you can use `conda create --name EnvironmentName jupyterlab r-essentials` command. To activate your environment use the following command: `conda activate EnvironmentName`. Now you can continue from the step <a href="#running-the-jupyterlab-environment"><em>Running the JupyterLab environment</em></a>. You can find out more about `Conda Environments` on their [official documentation page](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+Note: if any problems occur while installing those packages try creating a separate `Conda Environment` specially for this project. To do so you can use `conda create --name EnvironmentName jupyterlab r-essentials` command. To activate your environment use the following command: `conda activate EnvironmentName`. Now you can continue from the step <a href="#running-the-jupyterlab-environment"><em>Running the JupyterLab environment</em></a>. [Does that work better?](https://github.com/FrightenedFox/r-lab-project#running-the-jupyterlab-environmenta) You can find out more about `Conda Environments` on their [official documentation page](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
 
 If there were no problems with installing modules you are ready to go. You can start from opening the file `data-visualization.ipynb` by clicking on it's icon on the side bar. 
 
@@ -106,6 +106,8 @@ If there were no problems with installing modules you are ready to go. You can s
 - [Free SVG](https://freesvg.org/)
 - [Canva](https://www.canva.com/)
 - [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect), [Freepik](https://www.freepik.com), [Becris](https://creativemarket.com/Becris), [bqlqn](https://www.flaticon.com/authors/bqlqn)  from [Flaticon](https://www.flaticon.com/)
+
+---
 
 <p align="center">
   <img src="./images/README_poster_450pdi.png" alt="Poster of the project">
