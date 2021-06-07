@@ -9,8 +9,6 @@ output:
 Zjawisko Phishingu zachodzi już od wielu lat. Jednak między innymi ostatni rok pokazał nam jak ważne jest bezpieczeństwo w internecie. Od roku świat się zatrzymał i przeniósł wszystko do Internetu. Z uwagi na ten fakt podjęcie tematu Phishingu uznaliśmy za bardzo na miejscu. Chcemy pokazać jak łatwo można dać się okraść. Przedstawiony przez nas projekt obejmuje tylko niewielki kawałek tej metody oszustwa, jednak uznaliśmy, że temat jest ciekawy.
 Phishing jest to atak oparty na wiadomościach e-mail lub SMS. Przestępcy internetowi próbują Cię oszukać i wymusić na Tobie działania zgodne z ich oczekiwaniami.
 
-# Importowanie danych, pakietów R i modułów
-
 ---
 
 ```{r message=FALSE, warning=FALSE}
@@ -21,7 +19,6 @@ library("ggplot2")
 library("ggExtra")
 library("hrbrthemes")
 library("rgl")
-library("tidyverse")
 library("GGally")
 
 source("modules/split-url.r")
@@ -158,7 +155,6 @@ ldsc_res_2 <- lett_dig_symb_count(split_res_2)
 
 Najpierw tworzymy jedną macierz z wynikami wszystkich obliczeń, którą potem konwertujemy w ramkę danych.
 
-
 ```{r}
 params_df <- as.data.frame(cbind(
     lengths_res,
@@ -269,9 +265,9 @@ ggplot(fdfp[fdfp$url_l < 500, ], aes(x = label, y = url_l, group = label, fill =
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
-                                  size = 12),
-        # panel.background = element_rect(fill = "#f0bc5e", colour = "black")
-        # rect = element_rect(fill = "#d8d7c4") 
+                                  size = 12)
+#         panel.background = element_rect(fill = "#f0bc5e", colour = "black")
+#         rect = element_rect(fill = "#d8d7c4") 
   ) + 
  scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
   labs(color = "Etykieta")
@@ -298,7 +294,7 @@ splom(~data.frame(xyx_host, lett_host, dig_host, symb_host),
 \newpage
 
 ```{r}
-ggpairs(fdfp[fdfp$url_l < 500 & sample(nrow(fdfp), 500), ], 
+ggpairs(fdfp[fdfp$url_l < 500 & sample(nrow(fdfp), 1000), ], 
         aes(color = color,
             alpha = .5),
         columns = c("xyx_host", "lett_host", "dig_host", "symb_host"),
@@ -306,13 +302,13 @@ ggpairs(fdfp[fdfp$url_l < 500 & sample(nrow(fdfp), 500), ],
                          "Ilość liter", 
                          "Ilość cyfr",
                          "Liczba znaków\ninterpunkcyjnych")) +
-  ggtitle("Rozkład symboli w hoscie adresu URL.") +
+  ggtitle("Rozkład symboli w hoście adresu URL.") +
   theme(plot.title = element_text(family = "", 
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)
-        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
-        #rect = element_rect(fill = "#d8d7c4")
+#         panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+#         rect = element_rect(fill = "#d8d7c4")
   ) + 
   labs(color = "Etykieta")
 ```
@@ -322,8 +318,8 @@ ggpairs(fdfp[fdfp$url_l < 500 & sample(nrow(fdfp), 500), ],
 ```{r}
 histogram(~ symb_url  | label  , 
           data = fdfp[sample(nrow(fdfp), 2000),],
-          main = "Porównanie liczba znaków interpunkcyjnych\nw dobrych i złych domenach",
-          xlab = "Ilość symboli w URL",
+          main = "Porównanie ilości znaków interpunkcyjnych\nw dobrych i złych domenach.",
+          xlab = "Ilość symboli w adresie URL",
           ylab = "Procent całości",
           layout = c(1, 2),
           nint = 20,
@@ -343,8 +339,8 @@ ggplot(fdfp[fdfp$url_l < 500, ], aes(x = symb_url, fill = label)) +
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)
-        # panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
-        # rect = element_rect(fill = "#d8d7c4")
+#         panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+#         rect = element_rect(fill = "#d8d7c4")
   ) + 
   scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
   labs(fill = "Etykieta", color = "Etykieta")
@@ -397,8 +393,8 @@ ggplot(data = fdfp[fdfp$url_l < 200, ], aes(x = symb_url, group = label, fill = 
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)
-        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
-        #rect = element_rect(fill = "#d8d7c4")
+#         panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+#         rect = element_rect(fill = "#d8d7c4")
   ) + 
   scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
   labs(fill = "Etykieta", color = "Etykieta")
@@ -416,8 +412,8 @@ ggplot(data = fdfm, aes(x = js_len, group = label, fill = label)) +
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)
-        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
-        #rect = element_rect(fill = "#d8d7c4")
+#         panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+#         rect = element_rect(fill = "#d8d7c4")
   ) + 
   scale_fill_manual(values = c("#f3aca7", "#6dd38c")) +
   labs(fill = "Etykieta", color = "Etykieta")
@@ -435,17 +431,19 @@ ggplot(data = fdfm, aes(x = js_len, y = js_obf_len, color = label) ) +
                                   face = 'bold', 
                                   colour = 'black', 
                                   size = 12)
-        #panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
-        #rect = element_rect(fill = "#d8d7c4")
+#         panel.background = element_rect(fill = "#f0bc5e", colour = "black"),
+#         rect = element_rect(fill = "#d8d7c4")
   ) + 
   scale_fill_manual(values = c("#6dd38c", "#f3aca7")) +
   labs(fill = "Etykieta", color = "Etykieta")
 ```
 
-\newpage
+# Wnioski
 
-# Jakieś wnioski przydałoby się dodać
+---
 
+Przeprowadzając powyższą analizę wiele się nauczyliśmy. Zauważyliśmy jakie związki leksykalne występują w przypadku domen złych. Wiemy jakie "zamiany" występują najczęściej. Przyglądając się linkom nie zawsze da się to wszystko wyłapać od razu. Zatem najważniejszym, ale nie jedynym, wnioskiem płynącym z naszego projektu jest fakt, że trzeba uważać w jakie linki się wchodzi.
+**Dostałeś/łaś podejrzanego maila? Nie otwieraj żadnych linków!**
 
 
 

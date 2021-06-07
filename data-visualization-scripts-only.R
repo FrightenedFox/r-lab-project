@@ -4,7 +4,6 @@
 # install.packages("ggplot2")
 # install.packages("ggExtra")
 # install.packages("hrbrthemes")
-# install.packages("tidyverse")
 # install.packages("rgl")
 # install.packages("GGally")
 
@@ -15,7 +14,6 @@ library("ggplot2")
 library("ggExtra")
 library("hrbrthemes")
 library("rgl")
-library("tidyverse")
 library("GGally")
 
 source("modules/split-url.r")
@@ -149,7 +147,7 @@ ggplot(fdfp[fdfp$url_l < 500, ], aes(x = label, y = url_l, group = label, fill =
 splom(~data.frame(xyx_host, lett_host, dig_host, symb_host), 
       data = fdfp[sample(nrow(fdfp), 1000),],
       pch = 1,
-      main = "Rozkład symboli w hoscie adresu URL.",
+      main = "Rozkład symboli w hoście adresu URL.",
       groups = label,
       #       xlab = c("A", "B", "C", "D"),
       #       xlab = "", # czymś takim można usunąńć ten napis "Scatter Plot Matrix"
@@ -307,7 +305,7 @@ plot3d(
   col = fdfm$color, 
   type = 's', 
   radius = 30,
-  xlab = "JS", ylab = "JS obf ", zlab = "URL")
+  xlab = "URL", ylab = "JS ", zlab = "JS obf")
 rgl.bg( sphere = FALSE, fogtype = "none", color = c("#d8d7c4", "black"), 
         back = "lines", fogScale = 1)
 
