@@ -18,13 +18,14 @@ So, to get things work properly, you would have to install some R and Python pac
 
 First of all you need [Python](https://www.python.org/downloads/) 3.5 or greater. Next you are expected to install `JupyterLab` and `r-essentials` modules. 
 
-#### Using `conda`
+#### Using [`conda`](https://docs.conda.io/en/latest/miniconda.html)
 
  - JupyterLab:
 
 	```bash
 	conda install -c conda-forge jupyterlab
 	```
+
  - R-essentials:
 
  	```bash
@@ -42,9 +43,29 @@ First of all you need [Python](https://www.python.org/downloads/) 3.5 or greater
 
 For more ways of installing `JupyterLab` please checkout [this page](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html).
 
+### Running the JupyterLab environment<a name="RunJupyterLab"></a
+
+Assuming R-essentials are installed you can use one of the following commands to open JupyterLab environment:
+
+```bash
+jupyter-lab
+```
+
+or 
+
+```bash
+python -m jupyter-lab
+```
+
+If everything was installed correctly then webpage similar to the one shown on the image below should appear in your default browser. 
+
+<p align="center">
+  <img src="./images/README_JupyterLab_450pdi.png" alt="Example of the JupyterLab environment">
+</p>
+
 ### R packages
 
-The following R packages are used in the project:
+To install all required packages please open `R Console` in the JupyterLab tab and execute the following piece of code:
 
 ```R
 install.packages("stringi")
@@ -53,11 +74,13 @@ install.packages("lattice")
 install.packages("ggplot2")
 install.packages("ggExtra")
 install.packages("hrbrthemes")
-install.packages("tidyverse")
 install.packages("rgl")
 install.packages("GGally")
 ```
 
+Note: if any problems occur while installing those packages try creating a separate `Conda Environment` specially for this project. To do so you can use `conda create --name EnvironmentName jupyterlab r-essentials` command. To activate your environment use the following command: `conda activate EnvironmentName`. Now you can continue from the step <a href="#running-the-jupyterlab-environment"><em>Running the JupyterLab environment</em></a>. You can find out more about `Conda Environments` on their [official documentation page](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+
+If there were no problems with installing modules you are ready to go. You can start from opening the file `data-visualization.ipynb` by clicking on it's icon on the side bar. 
 
 ## References
 
@@ -84,5 +107,6 @@ install.packages("GGally")
 - [Canva](https://www.canva.com/)
 - [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect), [Freepik](https://www.freepik.com), [Becris](https://creativemarket.com/Becris), [bqlqn](https://www.flaticon.com/authors/bqlqn)  from [Flaticon](https://www.flaticon.com/)
 
----
-
+<p align="center">
+  <img src="./images/README_poster_450pdi.png" alt="Poster of the project">
+</p>
