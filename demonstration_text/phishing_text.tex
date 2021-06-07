@@ -71,7 +71,7 @@
 	\end{titlepage}
 }
 \makeatother
-\author{Vitalii Morskyi\\Makarska Julia\\Grupa L04\\Inżynieria i analiza danych}
+\author{Vitalii Morskyi\\Julia Makarska\\Grupa L04\\Inżynieria i analiza danych}
 \title{Projekt w R - notatki do prezentacji}
 
 \begin{document}
@@ -91,10 +91,6 @@
 	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
 }
 \section{Slajd 3.}
-{
-	Korzystając z danych z roku 2019 można wyciągnąć prosty wniosek: Phishing to potężne zagrożenie. W roku 2019 zanotowano aż $65\%$ wzrost ataków. Pod kątem wycieków newralgicznych danych phishing odpowiedzialny jest aż za $90\%$ wszystkich przypadków. Wygenerował on 12 mld dolarów strat.
-}
-\section{Slajd 4.}
 {
 	Głównym założeniem naszego projektu jest analiza adresu URL pod kątem niebezpiecznych kombinacji znakowych. Skupiamy się głównie na takich częściach URL jak:
 	\begin{itemize}
@@ -126,47 +122,35 @@
 	\end{itemize}
 	Wybraliśmy dwa pliki i zmodernizowaliśmy tak by odpowiadały badanym cechom.
 }
-\section{Slajd 5.}
+\section{Slajd 4.}
 {
-	Przejdziemy teraz do prezentacji kodu.
+	Po tym krótkim wstępie przejdziemy do prezentacji kodu.
 }
-\section{Slajd 6.}
+\section{Slajd 5.}
 {
 	Pierwsze z naszych wykresów przedstawiają porównanie ilości dobrych i złych domen w naszych plikach z danymi. Od razu widać, że jest ich podobna ilość.
 }
+\section{Slajd 6.}
+{
+	Kolejny wykres przedstawia porównanie długości adresów URL. Widać, że adresy niebezpieczne są dłuższe niż adresy bezpieczne.
+}
 \section{Slajd 7.}
 {
-	Kolejny wykres przedstawia porównanie długości adresów URL. Widać, że adresy bezpieczne mają są dłuższe niż adresy niebezpieczne.
+	W następnym wykresie mamy podany rozkład symboli w hoście adresu URL. Wykres zbudowany jest na zasadzie macierzy symetrycznej.
 }
 \section{Slajd 8.}
 {
-	W następnym wykresie mamy podany rozkład symboli w hoście adresu URL. Odczytujemy to podobnie jak macierz.
+	Następnie poruszyliśmy kwestię porównania ilości znaków interpunkcyjnych w całości adresu. Widać, że w adresach złych występuje ich zazwyczaj więcej.
 }
 \section{Slajd 9.}
 {
-	Następnie poruszyliśmy kwestię porównania ilości znaków interpunkcyjnych w całości adresu. Widać, że w adresach złych występuje ich zazwyczaj więcej.
+	Patrząc na wykres gęstości ilości znaków interpunkcyjnych w linku widzimy, że linki złe mają bardziej rozrzucone znaki interpunkcyjne.
 }
 \section{Slajd 10.}
 {
-	
-}
-\section{Slajd 11.}
-{
-	Kolejny wykres przedstawia rozkład znaków w domenach. Odczytujemy to podobnie jak macierz.
-}
-\section{Slajd 12.}
-{
-	Patrząc na wykres gęstości ilości znaków interpunkcyjnych w linku widzimy, że gęstość ta jest większa dla adresów złych.
-}
-\section{Slajd 13.}
-{
-	Ostatnie dwa wykresy poruszą temat kodu JavaScript. Na pierwszym widać gęstość tego kodu dla stron dobrych jest wyższa ale sam kod jest krótszy. Natomiast dla stron złych długość kodu jest większa ale gęstość mniejsza. 
-}
-\section{Slajd 14.}
-{
 	Ostatni wykres w naszej analizie przedstawia związek pomiędzy długością kodu JavaScript a bezpieczeństwem domeny. Bierzemy tu pod uwagę długość kodu zaciemnionego. W domenach bezpiecznych długość kodu zaciemnionego jest na poziomie zerowym. Natomiast w złych widać od razu, że tego kodu jest dość dużo.
 }
-\section{Slajd 15.}
+\section{Slajd 11.}
 {
 	Przeprowadzając powyższą analizę wiele się nauczyliśmy. Zauważyliśmy jakie związki leksykalne występują w przypadku domen złych. Wiemy jakie "zamiany" występują najczęściej. Przyglądając się linkom nie zawsze da się to wszystko wyłapać od razu. Zatem najważniejszym, ale nie jedynym, wnioskiem płynącym z naszego projektu jest fakt, że trzeba uważać w jakie linki się wchodzi.\\
 	~\\
