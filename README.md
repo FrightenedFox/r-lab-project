@@ -8,6 +8,7 @@
 
 The phenomenon of phishing has been around for many years. However, the last year has shown how important internet security is among other things. Over a year ago, the world stopped: everybody and everything was moved to the Internet. That motivated us to analyse the topic of Phishing. Phishers usually use email or SMS messages to deceive users and force to act according to their expectations. The key points we want to emphasize in our research are how easy it is to get tricked and what are the common properties of malicious URLs. The aspects we analyzed cover only a small piece of this cheating method, however we found the results to be interesting, and hope you will as well. At the same time, this file is more about recreating the steps of our analysis, not reporting the final results. However, if you are interested in the latter one, please checkout the [`demonstration`](https://github.com/FrightenedFox/r-lab-project/tree/main/demonstration) folder or the [`data-visualization.\*`](https://github.com/FrightenedFox/r-lab-project/blob/main/data-visualization.pdf) files. 
 
+This project is a part of the curriculum in *"Programming in R"* of the Polytechnic University of Rzeszow, Poland.
 
 ## Setting up the environment
 
